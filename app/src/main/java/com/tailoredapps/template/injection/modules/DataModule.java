@@ -1,7 +1,9 @@
 package com.tailoredapps.template.injection.modules;
 
 import com.tailoredapps.template.data.local.CountryRepo;
+import com.tailoredapps.template.data.local.PrefRepo;
 import com.tailoredapps.template.data.local.RealmCountryRepo;
+import com.tailoredapps.template.data.local.SharedPrefRepo;
 
 import dagger.Binds;
 import dagger.Module;
@@ -21,6 +23,9 @@ import dagger.Module;
  * limitations under the License. */
 @Module
 public abstract class DataModule {
+
+    @Binds
+    abstract PrefRepo bindPrefRepo(SharedPrefRepo prefRepo);
 
     @Binds
     abstract CountryRepo bindCountryRepo(RealmCountryRepo realmCountryRepo);

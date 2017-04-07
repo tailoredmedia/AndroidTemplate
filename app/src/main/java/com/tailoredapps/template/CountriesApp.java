@@ -34,13 +34,14 @@ public class CountriesApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Realm.init(this);
+        Timber.plant(new Timber.DebugTree());
+
         sInstance = this;
         sAppComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .build();
 
-        Timber.plant(new Timber.DebugTree());
+        sAppComponent.encryptionKeyManager().initEncryptedRealm();
 
         RxJavaPlugins.setErrorHandler(Timber::e);
     }
