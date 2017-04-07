@@ -6,14 +6,12 @@ import android.content.res.Resources;
 
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
-import com.tailoredapps.template.BuildConfig;
 import com.tailoredapps.template.injection.qualifier.AppContext;
 import com.tailoredapps.template.injection.scopes.PerApplication;
 
 import dagger.Module;
 import dagger.Provides;
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 
 /* Copyright 2016 Patrick Löwenstein
  *
@@ -62,16 +60,8 @@ public class AppModule {
     }
 
     @Provides
-    @PerApplication
-    static RealmConfiguration provideRealmConfiguration() {
-        RealmConfiguration.Builder builder = new RealmConfiguration.Builder();
-        if(BuildConfig.DEBUG) { builder = builder.deleteRealmIfMigrationNeeded(); }
-        return builder.build();
-    }
-
-    @Provides
-    static Realm provideRealm(RealmConfiguration realmConfiguration) {
-        return Realm.getInstance(realmConfiguration);
+    static Realm provideRealm() {
+        return Realm.getDefaultInstance();
     }
 
 }

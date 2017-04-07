@@ -5,6 +5,8 @@ import android.content.res.Resources;
 
 import com.squareup.leakcanary.RefWatcher;
 import com.tailoredapps.template.data.local.MyRepo;
+import com.tailoredapps.template.data.local.PrefRepo;
+import com.tailoredapps.template.data.local.encryption.EncryptionKeyManager;
 import com.tailoredapps.template.data.remote.MyApi;
 import com.tailoredapps.template.injection.modules.AppModule;
 import com.tailoredapps.template.injection.modules.DataModule;
@@ -35,7 +37,10 @@ public interface AppComponent {
     Resources resources();
     RefWatcher refWatcher();
 
+    EncryptionKeyManager encryptionKeyManager();
+
     Realm realm();
+    PrefRepo prefRepo();
     MyRepo myRepo();
     MyApi myApi();
 }

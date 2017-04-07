@@ -2,6 +2,8 @@ package com.tailoredapps.template.injection.modules;
 
 import com.tailoredapps.template.data.local.MyRepo;
 import com.tailoredapps.template.data.local.MyRepoImpl;
+import com.tailoredapps.template.data.local.PrefRepo;
+import com.tailoredapps.template.data.local.SharedPrefRepo;
 
 import dagger.Binds;
 import dagger.Module;
@@ -25,4 +27,7 @@ public abstract class DataModule {
 
     @Binds
     abstract MyRepo bindMyRepo(MyRepoImpl repo);
+
+    @Binds
+    abstract PrefRepo bindPrefRepo(SharedPrefRepo prefRepo);
 }
