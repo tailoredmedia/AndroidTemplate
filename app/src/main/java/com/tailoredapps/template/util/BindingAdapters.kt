@@ -3,8 +3,11 @@ package com.tailoredapps.template.util
 import android.databinding.BindingAdapter
 import android.view.View
 import android.view.ViewGroup
+import com.jakewharton.rxrelay2.PublishRelay
 
 object BindingAdapters {
+
+    private val NOTIFICATION = Any()
 
     @BindingAdapter("android:visibility")
     @JvmStatic
@@ -17,5 +20,11 @@ object BindingAdapters {
     fun setLayoutMarginBottom(v: View, bottomMargin: Int) {
         val layoutParams = v.layoutParams as ViewGroup.MarginLayoutParams
         layoutParams.bottomMargin = bottomMargin
+    }
+
+    @BindingAdapter("android:onClick")
+    @JvmStatic
+    fun setPublishRelayOnClick(v: View, relay: PublishRelay<Any>) {
+        v.setOnClickListener { relay.accept(NOTIFICATION) }
     }
 }

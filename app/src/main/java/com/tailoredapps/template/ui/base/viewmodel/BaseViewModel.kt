@@ -3,9 +3,9 @@ package com.tailoredapps.template.ui.base.viewmodel
 import android.databinding.BaseObservable
 import android.os.Bundle
 import android.support.annotation.CallSuper
-
-import com.tailoredapps.template.ui.base.MvvmViewNotAttachedException
 import com.tailoredapps.template.ui.base.view.MvvmView
+import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
 
 /* Copyright 2016 Patrick Löwenstein
  *
@@ -19,43 +19,65 @@ import com.tailoredapps.template.ui.base.view.MvvmView
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. */
+ * limitations under the License.
+ *
+ * ------
+ *
+ * FILE MODIFIED 2017 Tailored Media GmbH
+ */
+
+
 /**
  * Base class that implements the ViewModel interface and provides a base implementation for
  * attachView() and detachView(). It also handles keeping a reference to the mvvmView that
  * can be accessed from the children classes by calling getMvpView().
 
  * When saving state is required, restoring is handled automatically when calling attachView().
- * However, saveInstanceState() must still be called in the corresponding lifecycle callback.
+ * However, saveInstanceState() must still be called in the corresponding lifecycle callback. */
+abstract class BaseViewModel<V : MvvmView, S : Any, PS, SR : StateReducer<S, PS>>
+    constructor(private val stateReducer: SR): BaseObservable(), MvvmViewModel<V, S> {
 
- * ------
-
- * FILE MODIFIED 2017 Tailored Media GmbH
- */
-abstract class BaseViewModel<V : MvvmView> : BaseObservable(), MvvmViewModel<V> {
-
-    var view: V? = null
+    protected var view: V? = null
         private set
+
+    protected val isViewAttached: Boolean
+        get() = view != null
+
+    abstract protected val initialState: S
+    abstract protected val partialStateObservable: Observable<PS>
+
+    override lateinit var state : S
+
+    private var disposable : Disposable? = null
+
 
     @CallSuper
     override fun attachView(view: V, savedInstanceState: Bundle?) {
         this.view = view
-        if (savedInstanceState != null) { restoreInstanceState(savedInstanceState) }
+        initState(savedInstanceState)
+        init()
+    }
+
+    protected open fun initState(savedInstanceState: Bundle?) {
+        state = initialState
     }
 
     @CallSuper
     override fun detachView() {
         view = null
+        disposable?.dispose()
     }
 
-    protected open fun restoreInstanceState(savedInstanceState: Bundle) { }
+    private fun init() {
+        disposable = partialStateObservable
+                .scan(state, stateReducer::reduce)
+                .subscribe(this::render)
+    }
+
+    private fun render(state : S) {
+        this.state = state
+        notifyChange()
+    }
 
     override fun saveInstanceState(outState: Bundle?) { }
-
-    val isViewAttached: Boolean
-        get() = view != null
-
-    fun checkViewAttached() {
-        if (!isViewAttached) throw MvvmViewNotAttachedException()
-    }
 }

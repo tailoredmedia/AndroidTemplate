@@ -17,9 +17,14 @@ import com.tailoredapps.template.ui.base.BaseActivity
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. */
-class MainActivity : BaseActivity<ActivityMainBinding, MainMvvm.View, MainMvvm.ViewModel>(), MainMvvm.View {
-
+ * limitations under the License.
+ *
+ * --------------
+ *
+ * FILE MODIFIED 2017 Tailored Media GmbH
+ *
+ */
+class MainActivity : BaseActivity<ActivityMainBinding, MainMvvm.ViewModel>(), MainMvvm.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

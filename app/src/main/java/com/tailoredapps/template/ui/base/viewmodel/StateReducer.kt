@@ -1,3 +1,5 @@
+package com.tailoredapps.template.ui.base.viewmodel
+
 /* Copyright 2017 Tailored Media GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,19 +13,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License. */
-
-package com.tailoredapps.template.ui.base.viewmodel
-
-import android.os.Parcelable
-import com.tailoredapps.template.ui.base.view.MvvmView
-import io.reactivex.disposables.CompositeDisposable
-
-abstract class RxBaseStateViewModel<T : MvvmView, S : Parcelable> : BaseStateViewModel<T, S>() {
-
-    protected val disposable = CompositeDisposable()
-
-    override fun detachView() {
-        super.detachView()
-        disposable.clear()
-    }
+interface StateReducer<S, in PS>  {
+    fun reduce(state: S, partialState: PS) : S
 }

@@ -23,9 +23,11 @@ import com.tailoredapps.template.ui.base.view.MvvmView
  *
  * FILE CHANGED 2017 Tailored Media GmbH
  */
-interface MvvmViewModel<V : MvvmView> : Observable {
+interface MvvmViewModel<V : MvvmView, S : Any> : Observable {
     fun attachView(view: V, savedInstanceState: Bundle?)
     fun detachView()
 
     fun saveInstanceState(outState: Bundle?)
+
+    var state : S
 }

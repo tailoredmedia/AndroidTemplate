@@ -1,3 +1,9 @@
+package com.tailoredapps.template.ui.main
+
+import com.tailoredapps.template.injection.scopes.PerActivity
+import com.tailoredapps.template.ui.base.viewmodel.StateReducer
+import javax.inject.Inject
+
 /* Copyright 2017 Tailored Media GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,18 +18,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License. */
 
-package com.tailoredapps.template.ui.base.viewmodel
-
-import com.tailoredapps.template.ui.base.view.MvvmView
-
-import io.reactivex.disposables.CompositeDisposable
-
-abstract class RxBaseViewModel<T : MvvmView> : BaseViewModel<T>() {
-
-    protected val disposable = CompositeDisposable()
-
-    override fun detachView() {
-        super.detachView()
-        disposable.clear()
+@PerActivity
+class MainStateReducer
+@Inject
+constructor(): StateReducer<MainState, MainPartialState> {
+    override fun reduce(state: MainState, partialState: MainPartialState): MainState {
+        when(partialState) {
+            MainPartialState.Increment -> return state.copy(count = state.count+1)
+            MainPartialState.Reset -> return MainState(0)
+        }
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable name="vm" type="com.tailoredapps.template.ui.main.MainMvvm.ViewModel" />
@@ -24,11 +25,37 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <FrameLayout
-            android:id="@+id/container"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:foreground="?android:windowContentOverlay" />
+            android:layout_margin="16dp"
+            android:foreground="?android:windowContentOverlay"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:text="@{@string/clicked(vm.state.count)}"
+                tools:text="Clicked: 10"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:onClick="@{vm.incrementClickRelay}"
+                android:text="@string/increment"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:onClick="@{vm.resetClickRelay}"
+                android:text="@string/reset"/>
+
+        </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

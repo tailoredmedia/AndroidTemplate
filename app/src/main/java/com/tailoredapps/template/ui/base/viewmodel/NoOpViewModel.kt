@@ -27,7 +27,8 @@ import javax.inject.Inject
  * */
 class NoOpViewModel<V : MvvmView>
 @Inject
-constructor() : BaseObservable(), MvvmViewModel<V> {
+constructor() : BaseObservable(), MvvmViewModel<V, Any> {
+    override var state: Any = Any()
 
     override fun attachView(view: V, savedInstanceState: Bundle?) {}
 

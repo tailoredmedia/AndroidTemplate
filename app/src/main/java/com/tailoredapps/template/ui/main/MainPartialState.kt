@@ -1,10 +1,6 @@
-package com.tailoredapps.template.ui.base.viewmodel
+package com.tailoredapps.template.ui.main
 
-import android.support.v7.widget.RecyclerView
-
-import com.tailoredapps.template.ui.base.view.MvvmView
-
-/* Copyright 2016 Patrick Löwenstein
+/* Copyright 2017 Tailored Media GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +13,8 @@ import com.tailoredapps.template.ui.base.view.MvvmView
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License. */
-interface AdapterMvvmViewModel<V : MvvmView> : MvvmViewModel<V> {
 
-    val adapter: RecyclerView.Adapter<*>
+sealed class MainPartialState {
+    object Increment : MainPartialState()
+    object Reset : MainPartialState()
 }

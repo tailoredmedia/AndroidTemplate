@@ -1,3 +1,8 @@
+package com.tailoredapps.template.ui.main
+
+import paperparcel.PaperParcel
+import paperparcel.PaperParcelable
+
 /* Copyright 2017 Tailored Media GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,6 +17,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License. */
 
-package com.tailoredapps.template.ui.base
-
-class MvvmViewNotAttachedException : RuntimeException("Please call ViewModel.attachView(MvvmView) before requesting data to the ViewModel")
+@PaperParcel
+data class MainState(val count : Int = 0) : PaperParcelable {
+    companion object {
+        @JvmField val CREATOR = PaperParcelMainState.CREATOR
+    }
+}
