@@ -7,18 +7,27 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+    signingConfigs {
+        release {
+            keyAlias 'mykeyalias'
+            keyPassword 'mykeypassword'
+            storeFile file('../keystore.jks')
+            storePassword 'mykeystorepassword'
+        }
+    }
     defaultConfig {
-        applicationId "com.patloew.countries"
+        applicationId "com.tailoredapps.template"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
 
-        setProperty("archivesBaseName", "Countries-v$versionName-b$versionCode")
+        setProperty("archivesBaseName", "TAAppTemplate-v$versionName-b$versionCode")
     }
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
             proguardFiles 'proguard-rules.pro'
@@ -27,11 +36,11 @@ android {
     productFlavors {
         devBackend {
             applicationIdSuffix ".dev"
-            resValue "string", "app_name", "Countries Dev"
+            resValue "string", "app_name", "TA Template App Dev"
             buildConfigField "String", "BASE_URL", "\"https://restcountries.eu/\""
         }
         productionBackend {
-            resValue "string", "app_name", "Countries"
+            resValue "string", "app_name", "TA Template App"
             buildConfigField "String", "BASE_URL", "\"https://restcountries.eu/\""
         }
     }
