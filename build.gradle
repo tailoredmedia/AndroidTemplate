@@ -5,6 +5,8 @@ buildscript {
     ext.kotlinVersion = '1.1.2-5'
     ext.realmVersion = '3.4.0'
     ext.gradlePluginVersion = '2.3.3'
+    ext.powerMockVersion = '1.7.0'
+
     repositories {
         jcenter()
         mavenCentral()
