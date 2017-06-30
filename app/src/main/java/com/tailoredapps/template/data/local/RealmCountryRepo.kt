@@ -28,8 +28,8 @@ class RealmCountryRepo
 @Inject
 constructor(private val realmProvider: Provider<Realm>) : CountryRepo {
 
-    private val favoriteChangeSubject = PublishSubject.create<String>()
-    override val favoriteChangeObservable: Observable<String>
+    private val favoriteChangeSubject = PublishSubject.create<String?>()
+    override val favoriteChangeObservable: Observable<String?>
         get() = favoriteChangeSubject
 
     override fun findAllSorted(sortField: String?, sort: Sort, detached: Boolean): List<Country> {
@@ -65,7 +65,7 @@ constructor(private val realmProvider: Provider<Realm>) : CountryRepo {
     override fun save(country: Country) {
         realmProvider.get().use { realm ->
             realm.executeTransaction { r -> r.copyToRealmOrUpdate(country) }
-            favoriteChangeSubject.onNext(country.alpha2Code)
+            favoriteChangeSubject.onNext(country.alpha2Code!!)
         }
     }
 
@@ -82,7 +82,7 @@ constructor(private val realmProvider: Provider<Realm>) : CountryRepo {
                     realmCountry.deleteFromRealm()
                 }
 
-                favoriteChangeSubject.onNext(alpha2Code)
+                favoriteChangeSubject.onNext(alpha2Code!!)
             }
         }
     }

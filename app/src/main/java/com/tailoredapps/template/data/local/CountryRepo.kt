@@ -19,7 +19,7 @@ import io.realm.Sort
  * See the License for the specific language governing permissions and
  * limitations under the License. */
 interface CountryRepo {
-    val favoriteChangeObservable: Observable<String>
+    val favoriteChangeObservable: Observable<String?>
 
     fun findAllSorted(sortField: String?, sort: Sort, detached: Boolean): List<Country>
     fun findAllSortedWithChanges(sortField: String?, sort: Sort): Observable<List<Country>>
