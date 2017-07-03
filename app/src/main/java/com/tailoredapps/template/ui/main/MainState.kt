@@ -1,7 +1,14 @@
 package com.tailoredapps.template.ui.main
 
+import android.databinding.BaseObservable
+import android.databinding.Bindable
+import com.tailoredapps.template.BR
+import com.tailoredapps.template.injection.scopes.PerActivity
+import com.tailoredapps.template.ui.base.viewmodel.PartialState
+import com.tailoredapps.template.ui.base.viewmodel.StateReducer
 import paperparcel.PaperParcel
 import paperparcel.PaperParcelable
+import javax.inject.Inject
 
 /* Copyright 2017 Tailored Media GmbH
  *
@@ -18,8 +25,40 @@ import paperparcel.PaperParcelable
  * limitations under the License. */
 
 @PaperParcel
-data class MainState(val count : Int = 0) : PaperParcelable {
+class MainState : BaseObservable(), PaperParcelable {
+
+    @get:Bindable
+    var count : Int = 0
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.count)
+        }
+
+    @get:Bindable
+    var resetCount : Int = 0
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.resetCount)
+        }
+
     companion object {
         @JvmField val CREATOR = PaperParcelMainState.CREATOR
     }
 }
+
+
+sealed class MainPartialState : PartialState<MainState> {
+    object Increment : MainPartialState() {
+        override fun reduce(state: MainState): MainState = state.apply { count++ }
+    }
+
+    object Reset : MainPartialState() {
+        override fun reduce(state: MainState): MainState = state.apply { count = 0; resetCount++ }
+    }
+}
+
+
+@PerActivity
+class MainStateReducer
+@Inject
+constructor(): StateReducer<MainState, MainPartialState>()

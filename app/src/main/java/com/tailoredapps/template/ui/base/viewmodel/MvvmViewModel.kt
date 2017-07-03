@@ -29,5 +29,5 @@ interface MvvmViewModel<V : MvvmView, S : Any> : Observable {
 
     fun saveInstanceState(outState: Bundle?)
 
-    var state : S
+    val state : S
 }

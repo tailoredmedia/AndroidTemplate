@@ -13,6 +13,9 @@ package com.tailoredapps.template.ui.base.viewmodel
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License. */
-interface StateReducer<S, in PS>  {
-    fun reduce(state: S, partialState: PS) : S
+
+abstract class StateReducer<S, in PS : PartialState<S>> constructor() {
+    fun reduce(state: S, partialState: PS) : S {
+        return partialState.reduce(state)
+    }
 }

@@ -1,12 +1,18 @@
 package com.tailoredapps.template.ui.main
 
+import android.os.Bundle
 import com.jakewharton.rxrelay2.PublishRelay
+import com.tailoredapps.template.R
+import com.tailoredapps.template.databinding.ActivityMainBinding
 import com.tailoredapps.template.injection.scopes.PerActivity
+import com.tailoredapps.template.ui.base.BaseActivity
+import com.tailoredapps.template.ui.base.view.MvvmView
 import com.tailoredapps.template.ui.base.viewmodel.BaseParcelableViewModel
+import com.tailoredapps.template.ui.base.viewmodel.MvvmViewModel
 import io.reactivex.Observable
 import javax.inject.Inject
 
-/* Copyright 2017 Tailored Media GmbH
+/* Copyright 2016 Patrick Löwenstein
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +24,43 @@ import javax.inject.Inject
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. */
+ * limitations under the License.
+ *
+ * --------------
+ *
+ * FILE MODIFIED 2017 Tailored Media GmbH
+ *
+ */
+
+interface MainScreen {
+
+    interface View : MvvmView
+
+    interface ViewModel : MvvmViewModel<View, MainState> {
+        val incrementClickRelay : PublishRelay<Any>
+        val resetClickRelay : PublishRelay<Any>
+    }
+}
+
+
+class MainActivity : BaseActivity<ActivityMainBinding, MainScreen.ViewModel>(), MainScreen.View {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        activityComponent.inject(this)
+        setAndBindContentView(savedInstanceState, R.layout.activity_main)
+
+        setSupportActionBar(binding.toolbar)
+    }
+
+}
+
 
 @PerActivity
 class MainViewModel
 @Inject
-constructor(stateReducer: MainStateReducer) : BaseParcelableViewModel<MainMvvm.View, MainState, MainPartialState, MainStateReducer>(stateReducer), MainMvvm.ViewModel {
+constructor(stateReducer: MainStateReducer) : BaseParcelableViewModel<MainScreen.View, MainState, MainPartialState>(stateReducer), MainScreen.ViewModel {
     override val resetClickRelay: PublishRelay<Any> = PublishRelay.create()
     override val incrementClickRelay: PublishRelay<Any> = PublishRelay.create()
 
@@ -34,5 +71,6 @@ constructor(stateReducer: MainStateReducer) : BaseParcelableViewModel<MainMvvm.V
         get() = Observable.merge(
                 incrementClickRelay.map { MainPartialState.Increment },
                 resetClickRelay.map { MainPartialState.Reset }
-            )
+        )
 }
+

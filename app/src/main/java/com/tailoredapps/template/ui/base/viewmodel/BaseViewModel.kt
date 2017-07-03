@@ -34,8 +34,8 @@ import io.reactivex.disposables.Disposable
 
  * When saving state is required, restoring is handled automatically when calling attachView().
  * However, saveInstanceState() must still be called in the corresponding lifecycle callback. */
-abstract class BaseViewModel<V : MvvmView, S : Any, PS, SR : StateReducer<S, PS>>
-    constructor(private val stateReducer: SR): BaseObservable(), MvvmViewModel<V, S> {
+abstract class BaseViewModel<V : MvvmView, S : Any, PS : PartialState<S>>
+    constructor(private val stateReducer: StateReducer<S, PS>): BaseObservable(), MvvmViewModel<V, S> {
 
     protected var view: V? = null
         private set
@@ -47,6 +47,7 @@ abstract class BaseViewModel<V : MvvmView, S : Any, PS, SR : StateReducer<S, PS>
     abstract protected val partialStateObservable: Observable<PS>
 
     override lateinit var state : S
+        protected set
 
     private var disposable : Disposable? = null
 

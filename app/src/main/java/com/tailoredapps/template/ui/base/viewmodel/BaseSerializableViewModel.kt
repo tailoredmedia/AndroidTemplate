@@ -26,13 +26,14 @@ import java.io.Serializable
 
  * When saving state is required, restoring is handled automatically when calling attachView().
  * However, saveInstanceState() must still be called in the corresponding lifecycle callback. */
-abstract class BaseSerializableViewModel<V : MvvmView, S : Serializable, PS, SR : StateReducer<S, PS>>
-constructor(stateReducer: SR): BaseViewModel<V, S, PS, SR>(stateReducer) {
+abstract class BaseSerializableViewModel<V : MvvmView, S : Serializable, PS : PartialState<S>>
+constructor(stateReducer: StateReducer<S, PS>): BaseViewModel<V, S, PS>(stateReducer) {
 
     override fun initState(savedInstanceState: Bundle?) {
         if(savedInstanceState == null) {
             state = initialState
         } else {
+            @Suppress("UNCHECKED_CAST")
             state = savedInstanceState.getSerializable(KEY_STATE) as S
         }
     }
@@ -42,6 +43,6 @@ constructor(stateReducer: SR): BaseViewModel<V, S, PS, SR>(stateReducer) {
     }
 
     companion object {
-        val KEY_STATE = "_state";
+        private const val KEY_STATE = "_state";
     }
 }

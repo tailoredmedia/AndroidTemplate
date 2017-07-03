@@ -26,8 +26,8 @@ import com.tailoredapps.template.ui.base.view.MvvmView
 
  * When saving state is required, restoring is handled automatically when calling attachView().
  * However, saveInstanceState() must still be called in the corresponding lifecycle callback. */
-abstract class BaseParcelableViewModel<V : MvvmView, S : Parcelable, PS, SR : StateReducer<S, PS>>
-    constructor(stateReducer: SR): BaseViewModel<V, S, PS, SR>(stateReducer) {
+abstract class BaseParcelableViewModel<V : MvvmView, S : Parcelable, PS : PartialState<S>>
+    constructor(stateReducer: StateReducer<S, PS>): BaseViewModel<V, S, PS>(stateReducer) {
 
     override fun initState(savedInstanceState: Bundle?) {
         if(savedInstanceState == null) {
@@ -42,6 +42,6 @@ abstract class BaseParcelableViewModel<V : MvvmView, S : Parcelable, PS, SR : St
     }
 
     companion object {
-        val KEY_STATE = "_state";
+        private const val KEY_STATE = "_state";
     }
 }

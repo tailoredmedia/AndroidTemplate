@@ -1,8 +1,4 @@
-package com.tailoredapps.template.ui.main
-
-import com.jakewharton.rxrelay2.PublishRelay
-import com.tailoredapps.template.ui.base.view.MvvmView
-import com.tailoredapps.template.ui.base.viewmodel.MvvmViewModel
+package com.tailoredapps.template.ui.base.viewmodel
 
 /* Copyright 2017 Tailored Media GmbH
  *
@@ -17,13 +13,6 @@ import com.tailoredapps.template.ui.base.viewmodel.MvvmViewModel
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License. */
-
-interface MainMvvm {
-
-    interface View : MvvmView
-
-    interface ViewModel : MvvmViewModel<View, MainState> {
-        val incrementClickRelay : PublishRelay<Any>
-        val resetClickRelay : PublishRelay<Any>
-    }
+interface PartialState<S>  {
+    fun reduce(state: S) : S
 }

@@ -1,7 +1,7 @@
 package com.tailoredapps.template.injection.modules
 
 
-import com.tailoredapps.template.ui.main.MainMvvm
+import com.tailoredapps.template.ui.main.MainScreen
 import com.tailoredapps.template.ui.main.MainViewModel
 
 import dagger.Binds
@@ -24,6 +24,6 @@ import dagger.Module
 abstract class ViewModelModule {
 
     @Binds
-    internal abstract fun bindMainViewModel(viewModel: MainViewModel): MainMvvm.ViewModel
+    internal abstract fun bindMainViewModel(viewModel: MainViewModel): MainScreen.ViewModel
 
 }

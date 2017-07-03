@@ -3,4 +3,5 @@
     <string name="increment">Increment</string>
     <string name="reset">Reset</string>
     <string name="clicked">Clicked: %0$d</string>
+    <string name="resets">Resets: %0$d</string>
 </resources>

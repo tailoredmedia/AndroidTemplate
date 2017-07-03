@@ -10,7 +10,7 @@ The basic app structure is taken from the [Countries Example app](https://github
 * Dagger 2 for dependency injection
 * Retrofit/OkHttp/Gson for networking
 * Realm for local data storage
-* MVVM as architectural pattern
+* MVI as architectural pattern
 
 ## App structure
 
@@ -24,17 +24,19 @@ The basic app structure is taken from the [Countries Example app](https://github
 ## Dev hints
 
 * Your bindings must have a variable named `vm`, with type of your ViewModel class. Do not put logic in your layouts, instead create a property in your view model.
+** The view model exposes the State via the `state` variable.
 * Your view classes (Activities, Fragments, ViewHolders) must implement `MvvmView` (usually, a new subinterface of `MvvmView`, specifying the callbacks for the specific view).
-* Your ViewModel class should extend `BaseStateViewModel<MvvmView, YourInnerStateClass>` if you have some state (e.g. when you have a form with user inputs) or `BaseViewModel<MvvmView>` if you don't have any state.
+* Your ViewModel class should extend `BaseViewModel<MvvmView, State, PartialState>`.
     * The base classes provide basic view attach/detach methods. 
-    * When you extended `BaseStateViewModel`, the State should be contained in a static inner class in the view model. This class must also be available for injection via an `@Inject` annotated constructor. Also, the class must be annotated with `@Parcel`, because Parceler is used for automatic saving/restoring of the state in the base class. This state class can also extend BaseObservable, for notifying the binding of changes. However, you can should instead use ObservableFields, ObservableBoolean, … to simplify bindings. Then you have to provide appropriate `@ParcelConverter` annotations to the fields – implementations of the most common types are available in the util package.
     * You can extend the `BaseValidator` class to validate the state.
+    * Provide a state class that contains all data that the view needs (this is the Model in MVVM). This class should extend BaseObservable and provide variables with custom setters that call `notifyPropertyChanged()` for data binding.
+    * Provide a partial state sealed class that implements `PartialState<State>`, which contains all the state changes that can occur. Each item in the sealed class must implement the `reduce(state)` function that adapts the state accordingly. 
 * Base classes for views
     * These classes provide a binding and viewModel field. The viewModel gets injected, the binding has to be set manually.
     * Detaching of the view model is handled by the base classes.
-    * Activities should extend `BaseActivity<Binding, View, ViewModel>`. You should use `setAndBindContentView(savedInstanceState, layoutResId)`, which sets the content view, creates the binding and attaches the view. Don’t forget to inject the viewModel via `activityComponent.inject(this)` before setting the content view.
-    * Fragments should extend `BaseFragment<Binding, View, ViewModel>`. You should use `setAndBindContentView(inflater, container, savedInstanceState, layoutResId)`, which sets the content view, creates the binding and attaches the view. Don’t forget to inject the viewModel via `fragmentComponent.inject(this)` before setting the content view.
-    * ViewHolders should extend BaseViewHolder<Binding, View, ViewModel>. You should use `bindContentView(view)`, which creates the binding and attaches the view. Don't forget to inject the viewModel via `viewHolderComponent.inject(this)` before binding the view.
+    * Activities should extend `BaseActivity<Binding, ViewModel>`. You should use `setAndBindContentView(savedInstanceState, layoutResId)`, which sets the content view, creates the binding and attaches the view. Don’t forget to inject the viewModel via `activityComponent.inject(this)` before setting the content view.
+    * Fragments should extend `BaseFragment<Binding, ViewModel>`. You should use `setAndBindContentView(inflater, container, savedInstanceState, layoutResId)`, which sets the content view, creates the binding and attaches the view. Don’t forget to inject the viewModel via `fragmentComponent.inject(this)` before setting the content view.
+    * ViewHolders should extend BaseViewHolder<Binding, ViewModel>. You should use `bindContentView(view)`, which creates the binding and attaches the view. Don't forget to inject the viewModel via `viewHolderComponent.inject(this)` before binding the view.
 
 ## Testing
 
@@ -43,7 +45,7 @@ The basic app structure is taken from the [Countries Example app](https://github
 
 ## Recommended Reading
 
-* [MVVM architecture with the data binding library](https://nullpointer.wtf/android/mvvm-architecture-data-binding-library/)
+* [Reactive Apps with Model-View-Intent](http://hannesdorfmann.com/android/mosby3-mvi-1)
 * [Using Retrofit with Realm and Parceler](https://nullpointer.wtf/android/using-retrofit-realm-parceler/)
 
 # License
