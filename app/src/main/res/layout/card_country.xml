@@ -16,7 +16,7 @@
         android:layout_marginRight="@dimen/card_outer_padding"
         android:layout_marginBottom='@{vm.cardBottomMargin}'
         android:foreground="?attr/selectableItemBackground"
-        android:onClick="@{vm::onCardClick}"
+        app:onClick="@{vm::onCardClick}"
         app:cardElevation="2dp"
         app:cardCornerRadius="2dp"
         app:cardUseCompatPadding="true">
@@ -89,7 +89,7 @@
             android:layout_gravity="right|top"
             android:adjustViewBounds="true"
             android:src="@{vm.bookmarkDrawable}"
-            android:onClick="@{vm::onBookmarkClick}"
+            app:onClick="@{vm::onBookmarkClick}"
             tools:src="@drawable/ic_bookmark_border_black"
             style="@style/Widget.AppCompat.Button.Borderless"/>
 
@@ -102,7 +102,7 @@
             android:adjustViewBounds="true"
             android:visibility='@{vm.mapVisible}'
             app:srcCompat="@drawable/ic_map_black"
-            android:onClick="@{vm::onMapClick}"
+            app:onClick="@{vm::onMapClick}"
             tools:src="@drawable/ic_map_black"
             style="@style/Widget.AppCompat.Button.Borderless"/>
 

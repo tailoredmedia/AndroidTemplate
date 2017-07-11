@@ -73,15 +73,7 @@ constructor(private val realmProvider: Provider<Realm>) : CountryRepo {
         if (realmCountry.isValid) {
             realmProvider.get().use { realm ->
                 val alpha2Code = realmCountry.alpha2Code
-
-                realm.executeTransaction { r ->
-                    realmCountry.borders?.deleteAllFromRealm()
-                    realmCountry.currencies?.deleteAllFromRealm()
-                    realmCountry.languages?.deleteAllFromRealm()
-                    realmCountry.translations?.deleteAllFromRealm()
-                    realmCountry.deleteFromRealm()
-                }
-
+                realm.executeTransaction { _ -> realmCountry.cascadingDeleteFromRealm() }
                 favoriteChangeSubject.onNext(alpha2Code!!)
             }
         }

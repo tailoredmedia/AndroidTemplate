@@ -48,4 +48,12 @@ open class Country : RealmObject(), Comparable<Country>, PaperParcelable {
             return 0
         }
     }
+
+    fun cascadingDeleteFromRealm() {
+        borders?.deleteAllFromRealm()
+        currencies?.deleteAllFromRealm()
+        languages?.deleteAllFromRealm()
+        translations?.deleteAllFromRealm()
+        deleteFromRealm()
+    }
 }

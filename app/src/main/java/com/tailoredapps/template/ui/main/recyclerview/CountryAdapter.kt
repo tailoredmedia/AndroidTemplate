@@ -2,11 +2,11 @@ package com.tailoredapps.template.ui.main.recyclerview
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
 import com.tailoredapps.template.R
 import com.tailoredapps.template.data.model.Country
 import com.tailoredapps.template.injection.scopes.PerFragment
 import com.tailoredapps.template.util.Utils
-import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
 import javax.inject.Inject
 
 /* Copyright 2016 Patrick Löwenstein

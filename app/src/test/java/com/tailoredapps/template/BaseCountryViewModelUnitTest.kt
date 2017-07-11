@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.view.View
 import com.nhaarman.mockito_kotlin.*
 import com.tailoredapps.template.data.local.CountryRepo
 import com.tailoredapps.template.data.model.Country
@@ -55,7 +54,6 @@ class BaseCountryViewModelUnitTest {
     }
 
     val countryRepo = mock<CountryRepo>()
-    val view = mock<View>()
     val mvvmView = mock<MvvmView>()
     val navigator = mock<Navigator>()
 
@@ -75,7 +73,7 @@ class BaseCountryViewModelUnitTest {
     fun onMapClick_startActivity() {
         val uri = Mockito.mock(Uri::class.java)
         PowerMockito.mockStatic(Uri::class.java) { uri }
-        countryViewModel.onMapClick(view)
+        countryViewModel.onMapClick()
         verify(navigator).startActivity(com.nhaarman.mockito_kotlin.eq(Intent.ACTION_VIEW), eq(uri))
     }
 
@@ -85,7 +83,7 @@ class BaseCountryViewModelUnitTest {
         whenever(countryRepo.getByField(any<String>(), anyOrNull(), any<Boolean>())) doReturn country
         whenever(countryRepo.detach(country)) doReturn country
 
-        countryViewModel.onBookmarkClick(view)
+        countryViewModel.onBookmarkClick()
         verify(countryRepo).delete(country)
     }
 
@@ -94,7 +92,7 @@ class BaseCountryViewModelUnitTest {
         val nullCountry: Country? = null
         whenever(countryRepo.getByField(any<String>(), any<String>(), any<Boolean>())).doReturn(nullCountry)
 
-        countryViewModel.onBookmarkClick(view)
+        countryViewModel.onBookmarkClick()
         verify(countryRepo).save(internalCountry)
     }
 }

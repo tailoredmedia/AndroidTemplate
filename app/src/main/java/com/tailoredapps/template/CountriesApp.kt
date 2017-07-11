@@ -2,11 +2,11 @@ package com.tailoredapps.template
 
 import android.app.Application
 import android.content.res.Resources
+import com.squareup.leakcanary.LeakCanary
 import com.tailoredapps.template.injection.components.AppComponent
 import com.tailoredapps.template.injection.components.DaggerAppComponent
 import com.tailoredapps.template.injection.modules.AppModule
 import com.tailoredapps.template.util.*
-import com.squareup.leakcanary.LeakCanary
 import io.reactivex.plugins.RxJavaPlugins
 import io.realm.Realm
 import paperparcel.Adapter

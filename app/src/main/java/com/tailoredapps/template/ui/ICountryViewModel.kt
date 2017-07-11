@@ -17,16 +17,14 @@
 package com.tailoredapps.template.ui
 
 import android.graphics.drawable.Drawable
-import android.view.View
-
 import com.tailoredapps.template.data.model.Country
 import com.tailoredapps.template.ui.base.view.MvvmView
 import com.tailoredapps.template.ui.base.viewmodel.MvvmViewModel
 
 interface ICountryViewModel<V : MvvmView> : MvvmViewModel<V> {
 
-    fun onMapClick(view: View?)
-    fun onBookmarkClick(view: View?)
+    fun onMapClick()
+    fun onBookmarkClick()
     fun update(country: Country, isLast: Boolean)
 
     // Properties
