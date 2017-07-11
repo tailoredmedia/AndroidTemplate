@@ -6,6 +6,7 @@ import com.tailoredapps.template.BR
 import com.tailoredapps.template.injection.scopes.PerActivity
 import com.tailoredapps.template.ui.base.viewmodel.PartialState
 import com.tailoredapps.template.ui.base.viewmodel.StateReducer
+import com.tailoredapps.template.util.kotlin.NotifyPropertyChangedDelegate
 import paperparcel.PaperParcel
 import paperparcel.PaperParcelable
 import javax.inject.Inject
@@ -27,19 +28,11 @@ import javax.inject.Inject
 @PaperParcel
 class MainState : BaseObservable(), PaperParcelable {
 
-    @get:Bindable
-    var count : Int = 0
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.count)
-        }
+    @get:Bindable @delegate:Transient
+    var count : Int by NotifyPropertyChangedDelegate<Int>(0, BR.count)
 
-    @get:Bindable
-    var resetCount : Int = 0
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.resetCount)
-        }
+    @get:Bindable @delegate:Transient
+    var resetCount : Int by NotifyPropertyChangedDelegate<Int>(0, BR.resetCount)
 
     companion object {
         @JvmField val CREATOR = PaperParcelMainState.CREATOR

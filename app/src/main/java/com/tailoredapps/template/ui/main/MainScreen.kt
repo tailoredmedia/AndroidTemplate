@@ -1,17 +1,3 @@
-package com.tailoredapps.template.ui.main
-
-import android.os.Bundle
-import com.jakewharton.rxrelay2.PublishRelay
-import com.tailoredapps.template.R
-import com.tailoredapps.template.databinding.ActivityMainBinding
-import com.tailoredapps.template.injection.scopes.PerActivity
-import com.tailoredapps.template.ui.base.BaseActivity
-import com.tailoredapps.template.ui.base.view.MvvmView
-import com.tailoredapps.template.ui.base.viewmodel.BaseParcelableViewModel
-import com.tailoredapps.template.ui.base.viewmodel.MvvmViewModel
-import io.reactivex.Observable
-import javax.inject.Inject
-
 /* Copyright 2016 Patrick Löwenstein
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,6 +17,21 @@ import javax.inject.Inject
  * FILE MODIFIED 2017 Tailored Media GmbH
  *
  */
+
+package com.tailoredapps.template.ui.main
+
+import android.os.Bundle
+import com.jakewharton.rxrelay2.PublishRelay
+import com.tailoredapps.template.R
+import com.tailoredapps.template.databinding.ActivityMainBinding
+import com.tailoredapps.template.injection.scopes.PerActivity
+import com.tailoredapps.template.ui.base.BaseActivity
+import com.tailoredapps.template.ui.base.view.MvvmView
+import com.tailoredapps.template.ui.base.viewmodel.BaseParcelableViewModel
+import com.tailoredapps.template.ui.base.viewmodel.MvvmViewModel
+import io.reactivex.Observable
+import javax.inject.Inject
+
 
 interface MainScreen {
 
