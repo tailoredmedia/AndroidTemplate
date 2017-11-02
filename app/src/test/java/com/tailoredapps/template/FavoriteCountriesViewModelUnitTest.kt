@@ -7,7 +7,7 @@ import com.tailoredapps.template.data.model.Country
 import com.tailoredapps.template.ui.main.recyclerview.CountryAdapter
 import com.tailoredapps.template.ui.main.viewpager.CountriesView
 import com.tailoredapps.template.ui.main.viewpager.favorites.FavoriteCountriesViewModel
-import io.reactivex.Observable
+import io.reactivex.Flowable
 import io.realm.RealmResults
 import io.realm.Sort
 import org.junit.Rule
@@ -53,7 +53,7 @@ class FavoriteCountriesViewModelUnitTest {
     @Test
     fun onRealmChangeListener_threeTimes() {
         whenever(countryRepo.findAllSortedWithChanges(any<String>(), any<Sort>())) doReturn
-                Observable.just<List<Country>>(countryList, countryList, countryList)
+                Flowable.just<List<Country>>(countryList, countryList, countryList)
 
         favoriteCountriesViewModel.attachView(mainActivityView, null)
 
@@ -67,7 +67,7 @@ class FavoriteCountriesViewModelUnitTest {
     @Test
     fun onRealmChangeListener_never() {
         whenever(countryRepo.findAllSortedWithChanges(any<String>(), any<Sort>())) doReturn
-                Observable.empty<List<Country>>()
+                Flowable.empty<List<Country>>()
 
         favoriteCountriesViewModel.attachView(mainActivityView, null)
 

@@ -2,7 +2,7 @@ package com.tailoredapps.template.data.local
 
 import com.tailoredapps.template.data.model.Country
 import com.tailoredapps.template.injection.scopes.PerApplication
-import com.tailoredapps.template.util.RealmResultsObservable
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import io.realm.Realm
@@ -44,9 +44,9 @@ constructor(private val realmProvider: Provider<Realm>) : CountryRepo {
         }
     }
 
-    override fun findAllSortedWithChanges(sortField: String?, sort: Sort): Observable<List<Country>> {
+    override fun findAllSortedWithChanges(sortField: String?, sort: Sort): Flowable<List<Country>> {
         realmProvider.get().use { realm ->
-            return RealmResultsObservable.from(realm.where(Country::class.java).findAllSortedAsync(sortField, sort))
+            return realm.where(Country::class.java).findAllSortedAsync(sortField, sort).asFlowable()
                     .filter({ it.isLoaded })
                     .map({ it })
         }

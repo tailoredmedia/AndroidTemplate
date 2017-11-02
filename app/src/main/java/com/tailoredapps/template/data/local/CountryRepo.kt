@@ -1,6 +1,7 @@
 package com.tailoredapps.template.data.local
 
 import com.tailoredapps.template.data.model.Country
+import io.reactivex.Flowable
 
 import io.reactivex.Observable
 import io.realm.Sort
@@ -22,7 +23,7 @@ interface CountryRepo {
     val favoriteChangeObservable: Observable<String?>
 
     fun findAllSorted(sortField: String?, sort: Sort, detached: Boolean): List<Country>
-    fun findAllSortedWithChanges(sortField: String?, sort: Sort): Observable<List<Country>>
+    fun findAllSortedWithChanges(sortField: String?, sort: Sort): Flowable<List<Country>>
 
     fun getByField(field: String?, value: String?, detached: Boolean): Country?
 

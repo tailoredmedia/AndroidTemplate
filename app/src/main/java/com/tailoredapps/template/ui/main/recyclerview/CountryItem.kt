@@ -27,7 +27,7 @@ import com.tailoredapps.template.injection.qualifier.AppContext
 import com.tailoredapps.template.injection.scopes.PerViewHolder
 import com.tailoredapps.template.ui.BaseCountryViewModel
 import com.tailoredapps.template.ui.ICountryViewModel
-import com.tailoredapps.template.ui.base.BaseViewHolder
+import com.tailoredapps.template.ui.base.BaseActivityViewHolder
 import com.tailoredapps.template.ui.base.navigator.Navigator
 import com.tailoredapps.template.ui.base.view.MvvmView
 import com.tailoredapps.template.ui.detail.DetailActivity
@@ -41,7 +41,7 @@ interface CountryMvvm {
 }
 
 
-class CountryViewHolder(v: View) : BaseViewHolder<CardCountryBinding, CountryMvvm.ViewModel>(v), MvvmView {
+class CountryViewHolder(v: View) : BaseActivityViewHolder<CardCountryBinding, CountryMvvm.ViewModel>(v), MvvmView {
 
     init {
         viewHolderComponent.inject(this)
