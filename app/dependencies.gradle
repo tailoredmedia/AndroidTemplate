@@ -15,6 +15,8 @@ def ui = dependencyGroup {
     implementation "com.android.support:recyclerview-v7:$supportLibVersion"
     implementation "com.android.support:design:$supportLibVersion"
 
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
     kapt "com.android.databinding:compiler:$gradlePluginVersion"
 }
 
