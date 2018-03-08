@@ -27,17 +27,7 @@ import timber.log.Timber
  * See the License for the specific language governing permissions and
  * limitations under the License. */
 
-@ProcessorConfig(
-        adapters = arrayOf(
-            Adapter(RealmListPaperParcelTypeConverter::class),
-            Adapter(ObservableFieldPaperParcelTypeConverter::class),
-            Adapter(ObservableBooleanPaperParcelTypeConverter::class),
-            Adapter(ObservableDoublePaperParcelTypeConverter::class),
-            Adapter(ObservableFloatPaperParcelTypeConverter::class),
-            Adapter(ObservableIntPaperParcelTypeConverter::class),
-            Adapter(ObservableLongPaperParcelTypeConverter::class)
-        )
-)
+@ProcessorConfig(adapters = [(Adapter(RealmListPaperParcelTypeConverter::class))])
 class MyApp : Application() {
 
     override fun onCreate() {

@@ -1,4 +1,4 @@
-package com.tailoredapps.template.util
+package com.tailoredapps.template.util.exceptions
 
 /**
  * Created by Florian Schuster
