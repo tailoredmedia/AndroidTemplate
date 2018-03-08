@@ -20,7 +20,7 @@ import dagger.Component
  * See the License for the specific language governing permissions and
  * limitations under the License. */
 @PerViewHolder
-@Component(dependencies = arrayOf(ActivityComponent::class), modules = arrayOf(ViewHolderModule::class, ViewModelModule::class))
+@Component(dependencies = [(ActivityComponent::class)], modules = [(ViewHolderModule::class), (ViewModelModule::class)])
 interface ActivityViewHolderComponent {
 
 }

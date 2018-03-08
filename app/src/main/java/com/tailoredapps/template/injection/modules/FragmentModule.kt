@@ -4,12 +4,14 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 
 import com.tailoredapps.template.injection.qualifier.ChildFragmentManager
+import com.tailoredapps.template.injection.qualifier.FragmentDisposable
 import com.tailoredapps.template.injection.scopes.PerFragment
 import com.tailoredapps.template.ui.base.navigator.ChildFragmentNavigator
 import com.tailoredapps.template.ui.base.navigator.FragmentNavigator
 
 import dagger.Module
 import dagger.Provides
+import io.reactivex.disposables.CompositeDisposable
 
 /* Copyright 2016 Patrick Löwenstein
  *
@@ -39,5 +41,10 @@ class FragmentModule(private val fragment: Fragment) {
     internal fun provideFragmentNavigator(): FragmentNavigator {
         return ChildFragmentNavigator(fragment)
     }
+
+    @Provides
+    @PerFragment
+    @FragmentDisposable
+    internal fun provideFragmentCompositeDisposable(): CompositeDisposable = CompositeDisposable()
 
 }

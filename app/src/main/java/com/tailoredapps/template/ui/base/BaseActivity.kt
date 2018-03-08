@@ -12,9 +12,11 @@ import com.tailoredapps.template.MyApp
 import com.tailoredapps.template.injection.components.ActivityComponent
 import com.tailoredapps.template.injection.components.DaggerActivityComponent
 import com.tailoredapps.template.injection.modules.ActivityModule
+import com.tailoredapps.template.injection.qualifier.ActivityDisposable
 import com.tailoredapps.template.ui.base.view.MvvmView
 import com.tailoredapps.template.ui.base.viewmodel.MvvmViewModel
 import com.tailoredapps.template.util.extensions.attachViewOrThrowRuntimeException
+import io.reactivex.disposables.CompositeDisposable
 import io.realm.Realm
 import timber.log.Timber
 import javax.inject.Inject
@@ -64,6 +66,9 @@ abstract class BaseActivity<B : ViewDataBinding, VM : MvvmViewModel<*>> : AppCom
     @Inject
     protected lateinit var refWatcher: RefWatcher
 
+    @field:[Inject ActivityDisposable]
+    internal lateinit var disposable: CompositeDisposable
+
     internal val activityComponent: ActivityComponent by lazy {
         DaggerActivityComponent.builder()
                 .activityModule(ActivityModule(this))
@@ -91,6 +96,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : MvvmViewModel<*>> : AppCom
     @CallSuper
     override fun onDestroy() {
         super.onDestroy()
+        disposable.clear()
         viewModel.detachView()
         refWatcher.watch(activityComponent)
         refWatcher.watch(viewModel)
