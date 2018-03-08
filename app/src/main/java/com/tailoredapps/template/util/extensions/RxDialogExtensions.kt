@@ -2,7 +2,8 @@ package com.tailoredapps.template.util.extensions
 
 import android.app.AlertDialog
 import android.content.Context
-import com.tailoredapps.template.util.RxDialogException
+import android.support.annotation.StringRes
+import com.tailoredapps.template.util.exceptions.RxDialogException
 import io.reactivex.Completable
 
 /**
@@ -20,7 +21,7 @@ fun Context.rxDialog(title: String, text: String,
         cancelable
 )
 
-fun Context.rxDialog(titleId: Int, textId: Int,
+fun Context.rxDialog(@StringRes titleId: Int, @StringRes textId: Int,
                      positiveId: Int = android.R.string.yes,
                      negativeId: Int? = android.R.string.cancel,
                      cancelable: Boolean = false

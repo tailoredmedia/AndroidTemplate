@@ -17,15 +17,9 @@ package com.tailoredapps.template.util.extensions
 import android.content.Context
 import android.content.ContextWrapper
 import android.os.Build
+import android.support.v4.content.ContextCompat
+import android.support.v4.content.PermissionChecker
 import java.util.*
-
-
-fun Context.getCurrentLocale(): Locale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-    this.resources.configuration.locales.get(0)
-} else {
-    @Suppress("DEPRECATION")
-    this.resources.configuration.locale
-}
 
 inline fun <reified T> Context.castWithUnwrap(): T? {
     if (this is T) return this
@@ -39,3 +33,16 @@ inline fun <reified T> Context.castWithUnwrap(): T? {
     }
     return null
 }
+
+
+val Context.currentLocale: Locale
+    get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        this.resources.configuration.locales.get(0)
+    } else {
+        @Suppress("DEPRECATION")
+        this.resources.configuration.locale
+    }
+
+
+fun Context.isPermissionGranted(permission: String) =
+        ContextCompat.checkSelfPermission(this, permission) == PermissionChecker.PERMISSION_GRANTED
