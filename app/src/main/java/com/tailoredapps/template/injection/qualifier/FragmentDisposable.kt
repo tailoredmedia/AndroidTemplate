@@ -1,10 +1,4 @@
-package com.tailoredapps.template.util
-
-import android.databinding.ObservableFloat
-import android.os.Parcel
-import paperparcel.TypeAdapter
-
-/* Copyright 2017 Patrick Löwenstein
+/* Copyright 2017 Tailored Media GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +11,12 @@ import paperparcel.TypeAdapter
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License. */
-class ObservableFloatPaperParcelTypeConverter() : TypeAdapter<ObservableFloat> {
 
-    override fun readFromParcel(source: Parcel): ObservableFloat {
-        return ObservableFloat(source.readFloat())
-    }
+package com.tailoredapps.template.injection.qualifier
 
-    override fun writeToParcel(value: ObservableFloat, dest: Parcel, flags: Int) {
-        dest.writeFloat(value.get())
-    }
+import javax.inject.Qualifier
 
-}
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class FragmentDisposable

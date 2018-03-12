@@ -33,7 +33,7 @@ import io.realm.Realm
  *
  * FILE MODIFIED 2017 Tailored Media GmbH */
 @PerApplication
-@Component(modules = arrayOf(AppModule::class, NetModule::class, DataModule::class))
+@Component(modules = [(AppModule::class), (NetModule::class), (DataModule::class)])
 interface AppComponent : AppComponentProvides {
 
 }

@@ -1,18 +1,3 @@
-package com.tailoredapps.template
-
-import android.app.Application
-import android.content.res.Resources
-import com.squareup.leakcanary.LeakCanary
-import com.tailoredapps.template.injection.components.AppComponent
-import com.tailoredapps.template.injection.components.DaggerAppComponent
-import com.tailoredapps.template.injection.modules.AppModule
-import com.tailoredapps.template.util.*
-import io.reactivex.plugins.RxJavaPlugins
-import io.realm.Realm
-import paperparcel.Adapter
-import paperparcel.ProcessorConfig
-import timber.log.Timber
-
 /* Copyright 2016 Patrick Löwenstein
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,17 +12,23 @@ import timber.log.Timber
  * See the License for the specific language governing permissions and
  * limitations under the License. */
 
-@ProcessorConfig(
-        adapters = arrayOf(
-            Adapter(RealmListPaperParcelTypeConverter::class),
-            Adapter(ObservableFieldPaperParcelTypeConverter::class),
-            Adapter(ObservableBooleanPaperParcelTypeConverter::class),
-            Adapter(ObservableDoublePaperParcelTypeConverter::class),
-            Adapter(ObservableFloatPaperParcelTypeConverter::class),
-            Adapter(ObservableIntPaperParcelTypeConverter::class),
-            Adapter(ObservableLongPaperParcelTypeConverter::class)
-        )
-)
+package com.tailoredapps.template
+
+
+import android.app.Application
+import android.content.res.Resources
+import com.squareup.leakcanary.LeakCanary
+import com.tailoredapps.template.injection.components.AppComponent
+import com.tailoredapps.template.injection.components.DaggerAppComponent
+import com.tailoredapps.template.injection.modules.AppModule
+import com.tailoredapps.template.util.*
+import io.reactivex.plugins.RxJavaPlugins
+import io.realm.Realm
+import paperparcel.Adapter
+import paperparcel.ProcessorConfig
+import timber.log.Timber
+
+@ProcessorConfig(adapters = [(Adapter(RealmListPaperParcelTypeConverter::class))])
 class MyApp : Application() {
 
     override fun onCreate() {

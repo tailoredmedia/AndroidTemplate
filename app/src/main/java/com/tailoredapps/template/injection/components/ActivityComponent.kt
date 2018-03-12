@@ -5,12 +5,14 @@ import android.support.v4.app.FragmentManager
 import com.tailoredapps.template.injection.modules.ActivityModule
 import com.tailoredapps.template.injection.modules.ViewModelModule
 import com.tailoredapps.template.injection.qualifier.ActivityContext
+import com.tailoredapps.template.injection.qualifier.ActivityDisposable
 import com.tailoredapps.template.injection.qualifier.ActivityFragmentManager
 import com.tailoredapps.template.injection.scopes.PerActivity
 import com.tailoredapps.template.ui.base.feedback.Snacker
 import com.tailoredapps.template.ui.base.navigator.Navigator
 import com.tailoredapps.template.ui.main.MainActivity
 import dagger.Component
+import io.reactivex.disposables.CompositeDisposable
 
 /* Copyright 2016 Patrick Löwenstein
  *
@@ -30,7 +32,7 @@ import dagger.Component
  *
  * FILE MODIFIED 2017 Tailored Media GmbH */
 @PerActivity
-@Component(dependencies = arrayOf(AppComponent::class), modules = arrayOf(ActivityModule::class, ViewModelModule::class))
+@Component(dependencies = [(AppComponent::class)], modules = [(ActivityModule::class), (ViewModelModule::class)])
 interface ActivityComponent : ActivityComponentProvides {
     // create inject methods for your Activities here
 
@@ -41,6 +43,8 @@ interface ActivityComponent : ActivityComponentProvides {
 interface ActivityComponentProvides : AppComponentProvides {
     @ActivityContext fun activityContext(): Context
     @ActivityFragmentManager fun defaultFragmentManager(): FragmentManager
+    @ActivityDisposable fun activityDisposable(): CompositeDisposable
+
     fun navigator(): Navigator
     fun snacker(): Snacker
 }

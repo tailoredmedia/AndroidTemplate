@@ -2,9 +2,11 @@ package com.tailoredapps.template.injection.components
 
 import com.tailoredapps.template.injection.modules.FragmentModule
 import com.tailoredapps.template.injection.modules.ViewModelModule
+import com.tailoredapps.template.injection.qualifier.FragmentDisposable
 import com.tailoredapps.template.injection.scopes.PerFragment
 
 import dagger.Component
+import io.reactivex.disposables.CompositeDisposable
 
 /* Copyright 2016 Patrick Löwenstein
  *
@@ -24,12 +26,14 @@ import dagger.Component
  *
  * FILE MODIFIED 2017 Tailored Media GmbH */
 @PerFragment
-@Component(dependencies = arrayOf(ActivityComponent::class), modules = arrayOf(FragmentModule::class, ViewModelModule::class))
+@Component(dependencies = [(ActivityComponent::class)], modules = [(FragmentModule::class), (ViewModelModule::class)])
 interface FragmentComponent : FragmentComponentProvides {
     // create inject methods for your Fragments here
 
 }
 
 interface FragmentComponentProvides : ActivityComponentProvides {
+
+    @FragmentDisposable fun fragmentDisposable(): CompositeDisposable
 
 }

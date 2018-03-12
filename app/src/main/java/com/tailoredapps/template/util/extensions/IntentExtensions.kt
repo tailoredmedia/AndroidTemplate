@@ -1,10 +1,4 @@
-package com.tailoredapps.template.util
-
-import android.databinding.ObservableLong
-import android.os.Parcel
-import paperparcel.TypeAdapter
-
-/* Copyright 2017 Patrick Löwenstein
+/* Copyright 2017 Tailored Media GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +11,14 @@ import paperparcel.TypeAdapter
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License. */
-class ObservableLongPaperParcelTypeConverter() : TypeAdapter<ObservableLong> {
 
-    override fun readFromParcel(source: Parcel): ObservableLong {
-        return ObservableLong(source.readLong())
-    }
+package com.tailoredapps.template.util.extensions
 
-    override fun writeToParcel(value: ObservableLong, dest: Parcel, flags: Int) {
-        dest.writeLong(value.get())
-    }
+import android.content.Intent
+import android.net.Uri
 
-}
+
+fun Intent.web(url: String): Intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+fun Intent.mail(mail: String): Intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$mail"))
+fun Intent.call(number: String): Intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$number"))
+fun Intent.maps(location: String): Intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.co.in/maps?q=$location"))

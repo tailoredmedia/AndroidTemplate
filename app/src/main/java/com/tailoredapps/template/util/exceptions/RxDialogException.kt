@@ -1,10 +1,4 @@
-package com.tailoredapps.template.util
-
-import android.databinding.ObservableDouble
-import android.os.Parcel
-import paperparcel.TypeAdapter
-
-/* Copyright 2017 Patrick Löwenstein
+/* Copyright 2017 Tailored Media GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +11,17 @@ import paperparcel.TypeAdapter
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License. */
-class ObservableDoublePaperParcelTypeConverter() : TypeAdapter<ObservableDouble> {
 
-    override fun readFromParcel(source: Parcel): ObservableDouble {
-        return ObservableDouble(source.readDouble())
+package com.tailoredapps.template.util.exceptions
+
+class RxDialogException(val type: Type) : Exception() {
+    companion object {
+        fun canceled(): RxDialogException = RxDialogException(Type.CANCELED)
+        fun negative(): RxDialogException = RxDialogException(Type.NEGATIVE)
     }
 
-    override fun writeToParcel(value: ObservableDouble, dest: Parcel, flags: Int) {
-        dest.writeDouble(value.get())
+    enum class Type {
+        CANCELED,
+        NEGATIVE
     }
-
 }

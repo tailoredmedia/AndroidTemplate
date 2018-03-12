@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 
 import com.tailoredapps.template.injection.qualifier.ActivityContext
+import com.tailoredapps.template.injection.qualifier.ActivityDisposable
 import com.tailoredapps.template.injection.qualifier.ActivityFragmentManager
 import com.tailoredapps.template.injection.scopes.PerActivity
 import com.tailoredapps.template.ui.base.feedback.ActivitySnacker
@@ -14,6 +15,7 @@ import com.tailoredapps.template.ui.base.navigator.Navigator
 
 import dagger.Module
 import dagger.Provides
+import io.reactivex.disposables.CompositeDisposable
 
 /* Copyright 2016 Patrick Löwenstein
  *
@@ -40,6 +42,12 @@ class ActivityModule(private val activity: AppCompatActivity) {
     @PerActivity
     @ActivityFragmentManager
     internal fun provideFragmentManager(): FragmentManager = activity.supportFragmentManager
+
+    @Provides
+    @PerActivity
+    @ActivityDisposable
+    internal fun provideActivityCompositeDisposable(): CompositeDisposable = CompositeDisposable()
+
 
     @Provides
     @PerActivity

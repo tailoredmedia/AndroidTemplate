@@ -14,10 +14,12 @@ import com.tailoredapps.template.BR
 import com.tailoredapps.template.injection.components.DaggerFragmentComponent
 import com.tailoredapps.template.injection.components.FragmentComponent
 import com.tailoredapps.template.injection.modules.FragmentModule
+import com.tailoredapps.template.injection.qualifier.FragmentDisposable
 import com.tailoredapps.template.injection.scopes.PerFragment
 import com.tailoredapps.template.ui.base.view.MvvmView
 import com.tailoredapps.template.ui.base.viewmodel.MvvmViewModel
 import com.tailoredapps.template.util.extensions.attachViewOrThrowRuntimeException
+import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -58,6 +60,9 @@ abstract class BaseFragment<B : ViewDataBinding, VM : MvvmViewModel<*>> : Fragme
     @Inject protected lateinit var viewModel: VM
     @Inject protected lateinit var refWatcher: RefWatcher
 
+    @field:[Inject FragmentDisposable]
+    internal lateinit var disposable: CompositeDisposable
+
 
     internal val fragmentComponent : FragmentComponent by lazy {
         DaggerFragmentComponent.builder()
@@ -86,6 +91,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : MvvmViewModel<*>> : Fragme
     @CallSuper
     override fun onDestroyView() {
         super.onDestroyView()
+        disposable.clear()
         viewModel.detachView()
         if (!viewModel.javaClass.isAnnotationPresent(PerFragment::class.java)) {
             refWatcher.watch(viewModel)
