@@ -14,7 +14,6 @@ import com.tailoredapps.template.ui.base.view.MvvmView
 import com.tailoredapps.template.ui.base.viewmodel.MvvmViewModel
 import com.tailoredapps.template.util.extensions.attachViewOrThrowRuntimeException
 import com.tailoredapps.template.util.extensions.castWithUnwrap
-import timber.log.Timber
 import javax.inject.Inject
 
 /* Base class for ViewHolders when using a view model in a Fragment with data binding.

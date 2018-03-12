@@ -1,7 +1,3 @@
-package com.tailoredapps.template.injection.qualifier
-
-import javax.inject.Qualifier
-
 /* Copyright 2016 Patrick Löwenstein
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +11,12 @@ import javax.inject.Qualifier
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License. */
+
+package com.tailoredapps.template.injection.qualifier
+
+import javax.inject.Qualifier
+
+
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
 annotation class AppContext

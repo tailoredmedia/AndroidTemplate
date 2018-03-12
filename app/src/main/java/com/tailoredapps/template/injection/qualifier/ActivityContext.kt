@@ -1,4 +1,5 @@
 package com.tailoredapps.template.injection.qualifier
+
 import javax.inject.Qualifier
 
 /* Copyright 2016 Patrick Löwenstein
