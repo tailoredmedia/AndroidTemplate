@@ -22,18 +22,17 @@ import io.reactivex.Completable
 
 
 fun Context.rxDialog(title: String, text: String,
-                     positiveId: Int = android.R.string.yes,
-                     negativeId: Int? = android.R.string.cancel,
+                     positiveText: String? = null, negativeText: String? = null,
                      cancelable: Boolean = false
 ): Completable = rxDialogInternal(
         title, text,
-        this.getString(positiveId), negativeId?.let { this.getString(it) },
+        positiveText ?: this.getString(android.R.string.yes), negativeText,
         cancelable
 )
 
 fun Context.rxDialog(@StringRes titleId: Int, @StringRes textId: Int,
-                     positiveId: Int = android.R.string.yes,
-                     negativeId: Int? = android.R.string.cancel,
+                     @StringRes positiveId: Int = android.R.string.yes,
+                     @StringRes negativeId: Int? = android.R.string.cancel,
                      cancelable: Boolean = false
 ): Completable = rxDialogInternal(
         this.getString(titleId), this.getString(textId),
