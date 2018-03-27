@@ -36,6 +36,7 @@ android {
         devBackend {
             applicationIdSuffix ".dev"
             resValue "string", "app_name", "TA Template App Dev"
+            resValue "string", "leak_canary_display_activity_label", "TA Template App Leaks"
             buildConfigField "String", "BASE_URL", "\"https://restcountries.eu/\""
             dimension "backend"
         }
