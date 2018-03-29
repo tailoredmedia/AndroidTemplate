@@ -17,10 +17,12 @@
 bold=$(tput bold)
 normal=$(tput sgr0)
 
+baseDir=$(dirname $0)
+
 echo
 
 # simple check if setup was already done
-if [ ! -f "app/src/main/java/com/tailoredapps/template/MyApp.kt" ]; then
+if [ ! -f "$baseDir/app/src/main/java/com/tailoredapps/template/MyApp.kt" ]; then
     echo "${bold}Setup already completed!"
     echo
     exit 0
@@ -59,20 +61,20 @@ packagePath=$(echo $packageName | sed 's/\./\//g')
 
 
 # set app name
-sed -i '' "s/resValue \"string\", \"app_name\", \"TA Template App/resValue \"string\", \"app_name\", \"$appName/g" ./app/build.gradle
-sed -i '' "s/resValue \"string\", \"leak_canary_display_activity_label\", \"TA Template App/resValue \"string\", \"leak_canary_display_activity_label\", \"$appName/g" ./app/build.gradle
-sed -i '' "s/setProperty(\"archivesBaseName\", \"TAAppTemplate/setProperty(\"archivesBaseName\", \"$appNameNoWhiteSpace/g" ./app/build.gradle
+sed -i '' "s/resValue \"string\", \"app_name\", \"TA Template App/resValue \"string\", \"app_name\", \"$appName/g" $baseDir/app/build.gradle
+sed -i '' "s/resValue \"string\", \"leak_canary_display_activity_label\", \"TA Template App/resValue \"string\", \"leak_canary_display_activity_label\", \"$appName/g" $baseDir/app/build.gradle
+sed -i '' "s/setProperty(\"archivesBaseName\", \"TAAppTemplate/setProperty(\"archivesBaseName\", \"$appNameNoWhiteSpace/g" $baseDir/app/build.gradle
 
 # find and replace package name recursively
-find . -not -path './.idea*' -a -not -path './.git*' -a -type f \( -iname \*.kt -o -iname \*.java -o -iname \*.xml -o -iname \*.gradle \) -exec sed -i '' "s/com\.tailoredapps\.template/$packageName/g" {} +
+find $baseDir -not -path './.idea*' -a -not -path './.git*' -a -type f \( -iname \*.kt -o -iname \*.java -o -iname \*.xml -o -iname \*.gradle \) -exec sed -i '' "s/com\.tailoredapps\.template/$packageName/g" {} +
 
 # move files
-mkdir -p "app/src/main/java/$packagePath"
-mkdir -p "app/src/test/java/$packagePath"
-mkdir -p "app/src/androidTest/java/$packagePath"
-mv app/src/main/java/com/tailoredapps/template/* "app/src/main/java/$packagePath"
-mv app/src/test/java/com/tailoredapps/template/* "app/src/test/java/$packagePath"
-mv app/src/androidTest/java/com/tailoredapps/template/* "app/src/androidTest/java/$packagePath"
+mkdir -p $baseDir/app/src/main/java/$packagePath
+mkdir -p $baseDir/app/src/test/java/$packagePath
+mkdir -p $baseDir/app/src/androidTest/java/$packagePath
+mv $baseDir/app/src/main/java/com/tailoredapps/template/* $baseDir/app/src/main/java/$packagePath
+mv $baseDir/app/src/test/java/com/tailoredapps/template/* $baseDir/app/src/test/java/$packagePath
+mv $baseDir/app/src/androidTest/java/com/tailoredapps/template/* $baseDir/app/src/androidTest/java/$packagePath
 
 echo
 echo "${bold}Setup complete${normal}"
