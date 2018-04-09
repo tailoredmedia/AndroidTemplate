@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Copyright 2018 Tailored Media GmbH
 #
@@ -17,9 +17,10 @@
 bold=$(tput bold)
 normal=$(tput sgr0)
 
+systemName=$(uname -s)
 baseDir=$(dirname $0)
 
-echo
+echo 
 
 # simple check if setup was already done
 if [ ! -f "$baseDir/app/src/main/java/com/tailoredapps/template/MyApp.kt" ]; then
@@ -32,16 +33,17 @@ echo "${bold}Welcome to the Android Template setup assistant.${normal}"
 echo Please enter the details of your project.
 echo
 
-read -p "App name:${normal} " appName
+read -p "${bold}App name:${normal} " appName
 # trim app name
 appName=$(echo $appName | xargs echo -n)
-appNameNoWhiteSpace=$(echo -n "${appName//[[:space:]]/}")
+appNameNoWhiteSpace=$(echo $appName | sed -e 's/ //g')
 
+regex="^[A-Za-z0-9 ]+$"
 # Check for correct app name
-if ! [[ $appName =~ ^[A-Za-z0-9\ ]+$ ]]; then
-    echo
+if ! [[ $appName =~ $regex ]]; then
+    echo 
     echo Aborting, please enter a correct app name.
-    echo
+    echo 
     exit 1
 fi
 
@@ -49,8 +51,9 @@ read -p "${bold}Package name:${normal} " packageName
 # trim package name
 packageName=$(echo $packageName | xargs echo -n)
 
+regex="^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$"
 # check for correct package name
-if ! [[ $packageName =~ ^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$ ]]; then
+if ! [[ $packageName =~ $regex ]]; then
     echo
     echo Aborting, please enter a correct package name.
     echo
@@ -59,16 +62,36 @@ fi
 
 packagePath=$(echo $packageName | sed 's/\./\//g')
 
-
 # set app name
-sed -i '' "s/resValue \"string\", \"app_name\", \"TA Template App/resValue \"string\", \"app_name\", \"$appName/g" $baseDir/app/build.gradle
-sed -i '' "s/resValue \"string\", \"leak_canary_display_activity_label\", \"TA Template App/resValue \"string\", \"leak_canary_display_activity_label\", \"$appName/g" $baseDir/app/build.gradle
-sed -i '' "s/setProperty(\"archivesBaseName\", \"TAAppTemplate/setProperty(\"archivesBaseName\", \"$appNameNoWhiteSpace/g" $baseDir/app/build.gradle
+
+if [ "Darwin" == $systemName ]; then
+    sed -i '' "s/resValue \"string\", \"app_name\", \"TA Template App/resValue \"string\", \"app_name\", \"$appName/g" $baseDir/app/build.gradle
+else
+    sed -i "s/resValue \"string\", \"app_name\", \"TA Template App/resValue \"string\", \"app_name\", \"$appName/g" $baseDir/app/build.gradle
+fi
+
+if [ "Darwin" == $systemName ]; then
+    sed -i '' "s/resValue \"string\", \"leak_canary_display_activity_label\", \"TA Template App/resValue \"string\", \"leak_canary_display_activity_label\", \"$appName/g" $baseDir/app/build.gradle
+else
+    sed -i "s/resValue \"string\", \"leak_canary_display_activity_label\", \"TA Template App/resValue \"string\", \"leak_canary_display_activity_label\", \"$appName/g" $baseDir/app/build.gradle
+fi
+
+if [ "Darwin" == $systemName ]; then
+    sed -i '' "s/setProperty(\"archivesBaseName\", \"TAAppTemplate/setProperty(\"archivesBaseName\", \"$appNameNoWhiteSpace/g" $baseDir/app/build.gradle
+else
+    sed -i "s/setProperty(\"archivesBaseName\", \"TAAppTemplate/setProperty(\"archivesBaseName\", \"$appNameNoWhiteSpace/g" $baseDir/app/build.gradle
+fi
 
 # find and replace package name recursively
-find $baseDir -not -path './.idea*' -a -not -path './.git*' -a -type f \( -iname \*.kt -o -iname \*.java -o -iname \*.xml -o -iname \*.gradle \) -exec sed -i '' "s/com\.tailoredapps\.template/$packageName/g" {} +
+
+if [ "Darwin" == $systemName ]; then
+    find $baseDir -not -path './.idea*' -a -not -path './.git*' -a -type f \( -iname \*.kt -o -iname \*.java -o -iname \*.xml -o -iname \*.gradle \) -exec sed -i '' "s/com\.tailoredapps\.template/$packageName/g" {} +
+else
+    find $baseDir -not -path './.idea*' -a -not -path './.git*' -a -type f \( -iname \*.kt -o -iname \*.java -o -iname \*.xml -o -iname \*.gradle \) -exec sed -i "s/com\.tailoredapps\.template/$packageName/g" {} +
+fi
 
 # move files
+
 mkdir -p $baseDir/app/src/main/java/$packagePath
 mkdir -p $baseDir/app/src/test/java/$packagePath
 mkdir -p $baseDir/app/src/androidTest/java/$packagePath
