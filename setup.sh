@@ -23,7 +23,7 @@ baseDir=$(dirname $0)
 echo 
 
 # simple check if setup was already done
-if [ ! -f "$baseDir/app/src/main/java/com/tailoredapps/template/MyApp.kt" ]; then
+if [ ! -f "$baseDir/app/src/main/kotlin/com/tailoredapps/template/MyApp.kt" ]; then
     echo "${bold}Setup already completed!"
     echo
     exit 0
@@ -92,12 +92,40 @@ fi
 
 # move files
 
-mkdir -p $baseDir/app/src/main/java/$packagePath
-mkdir -p $baseDir/app/src/test/java/$packagePath
-mkdir -p $baseDir/app/src/androidTest/java/$packagePath
-mv $baseDir/app/src/main/java/com/tailoredapps/template/* $baseDir/app/src/main/java/$packagePath
-mv $baseDir/app/src/test/java/com/tailoredapps/template/* $baseDir/app/src/test/java/$packagePath
-mv $baseDir/app/src/androidTest/java/com/tailoredapps/template/* $baseDir/app/src/androidTest/java/$packagePath
+mkdir -p $baseDir/app/src/main/kotlin/$packagePath
+mkdir -p $baseDir/app/src/test/kotlin/$packagePath
+mkdir -p $baseDir/app/src/androidTest/kotlin/$packagePath
+mv $baseDir/app/src/main/kotlin/com/tailoredapps/template/* $baseDir/app/src/main/kotlin/$packagePath
+mv $baseDir/app/src/test/kotlin/com/tailoredapps/template/* $baseDir/app/src/test/kotlin/$packagePath
+mv $baseDir/app/src/androidTest/kotlin/com/tailoredapps/template/* $baseDir/app/src/androidTest/kotlin/$packagePath
+
+# remove old folders
+
+originalPackagePathParts=(com tailoredapps template)
+newPackagePathParts=(`echo $packageName | sed 's/\./ /g'`)
+
+if [[ $packageName != com.tailoredapps.template* ]]; then
+    # New package name is not equal or subpackage of old package name
+    
+    deletePath=""
+    for index in ${!originalPackagePathParts[*]}
+    do
+        if [ $index -ne 0 ]; then 
+            deletePath=${deletePath}/ 
+        fi
+
+        deletePath=${deletePath}${originalPackagePathParts[$index]}
+
+        if  [ $index -eq ${#newPackagePathParts[@]} ] || [ ${originalPackagePathParts[$index]} != ${newPackagePathParts[$index]} ]; then
+            break
+        fi
+    done
+
+    rm -r $baseDir/app/src/main/kotlin/$deletePath
+    rm -r $baseDir/app/src/test/kotlin/$deletePath
+    rm -r $baseDir/app/src/androidTest/kotlin/$deletePath
+
+fi
 
 echo
 echo "${bold}Setup complete${normal}"
