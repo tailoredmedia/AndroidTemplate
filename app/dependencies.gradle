@@ -15,7 +15,7 @@ def ui = dependencyGroup {
     implementation "com.android.support:recyclerview-v7:$supportLibVersion"
     implementation "com.android.support:design:$supportLibVersion"
 
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
 
     kapt "com.android.databinding:compiler:$gradlePluginVersion"
 }
@@ -84,8 +84,9 @@ def di = dependencyGroup {
 
 
 def rx = dependencyGroup {
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.10'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.12'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
 }
 
 dependencies {

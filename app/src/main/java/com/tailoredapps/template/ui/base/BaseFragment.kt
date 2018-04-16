@@ -107,7 +107,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : MvvmViewModel<*>> : Fragme
 
 
     /* Sets the content view, creates the binding and attaches the view to the view model */
-    protected fun setAndBindContentView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?, @LayoutRes layoutResID: Int): View {
+    protected fun setAndBindContentView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, @LayoutRes layoutResID: Int): View {
         binding = DataBindingUtil.inflate<B>(inflater, layoutResID, container, false)
         binding.setVariable(BR.vm, viewModel)
         viewModel.attachViewOrThrowRuntimeException(this, savedInstanceState)
