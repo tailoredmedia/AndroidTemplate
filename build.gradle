@@ -3,7 +3,7 @@ apply plugin: 'com.github.ben-manes.versions'
 
 buildscript {
     ext.kotlinVersion = '1.2.31'
-    ext.realmVersion = '5.0.0'
+    ext.realmVersion = '5.0.1'
     ext.gradlePluginVersion = '3.1.0'
     ext.mockitoVersion = '2.18.0'
     ext.powerMockVersion = '2.0.0-beta.5'

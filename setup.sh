@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License. */
 
+clear
+
 bold=$(tput bold)
 normal=$(tput sgr0)
 
@@ -37,9 +39,10 @@ read -p "${bold}App name:${normal} " appName
 # trim app name
 appName=$(echo $appName | xargs echo -n)
 appNameNoWhiteSpace=$(echo $appName | sed -e 's/ //g')
+appClassName=$(echo $appNameNoWhiteSpace | awk '{print toupper(substr($0,0,1))substr($0,2)}')
 
-regex="^[A-Za-z0-9 ]+$"
 # Check for correct app name
+regex="^[A-Za-z0-9 ]+$"
 if ! [[ $appName =~ $regex ]]; then
     echo 
     echo Aborting, please enter a correct app name.
@@ -51,8 +54,8 @@ read -p "${bold}Package name:${normal} " packageName
 # trim package name
 packageName=$(echo $packageName | xargs echo -n)
 
-regex="^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$"
 # check for correct package name
+regex="^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$"
 if ! [[ $packageName =~ $regex ]]; then
     echo
     echo Aborting, please enter a correct package name.
@@ -61,6 +64,7 @@ if ! [[ $packageName =~ $regex ]]; then
 fi
 
 packagePath=$(echo $packageName | sed 's/\./\//g')
+
 
 # set app name
 
@@ -82,12 +86,21 @@ else
     sed -i "s/setProperty(\"archivesBaseName\", \"TAAppTemplate/setProperty(\"archivesBaseName\", \"$appNameNoWhiteSpace/g" $baseDir/app/build.gradle
 fi
 
+
 # find and replace package name recursively
 
 if [ "Darwin" == $systemName ]; then
     find $baseDir -not -path './.idea*' -a -not -path './.git*' -a -type f \( -iname \*.kt -o -iname \*.java -o -iname \*.xml -o -iname \*.gradle \) -exec sed -i '' "s/com\.tailoredapps\.template/$packageName/g" {} +
 else
     find $baseDir -not -path './.idea*' -a -not -path './.git*' -a -type f \( -iname \*.kt -o -iname \*.java -o -iname \*.xml -o -iname \*.gradle \) -exec sed -i "s/com\.tailoredapps\.template/$packageName/g" {} +
+fi
+
+# find and replace app name recursively
+
+if [ "Darwin" == $systemName ]; then
+    find $baseDir -not -path './.idea*' -a -not -path './.git*' -a -type f \( -iname \*.kt -o -iname \*.java -o -iname \*.xml -o -iname \*.gradle \) -exec sed -i '' "s/MyApp/${appNameNoWhiteSpace}App/g" {} +
+else
+    find $baseDir -not -path './.idea*' -a -not -path './.git*' -a -type f \( -iname \*.kt -o -iname \*.java -o -iname \*.xml -o -iname \*.gradle \) -exec sed -i "s/MyApp/${appNameNoWhiteSpace}App/g" {} +
 fi
 
 # move files
@@ -98,6 +111,7 @@ mkdir -p $baseDir/app/src/androidTest/kotlin/$packagePath
 mv $baseDir/app/src/main/kotlin/com/tailoredapps/template/* $baseDir/app/src/main/kotlin/$packagePath
 mv $baseDir/app/src/test/kotlin/com/tailoredapps/template/* $baseDir/app/src/test/kotlin/$packagePath
 mv $baseDir/app/src/androidTest/kotlin/com/tailoredapps/template/* $baseDir/app/src/androidTest/kotlin/$packagePath
+mv $baseDir/app/src/main/kotlin/$packagePath/MyApp.kt $baseDir/app/src/main/kotlin/$packagePath/${appClassName}App.kt
 
 # remove old folders
 
@@ -130,3 +144,4 @@ fi
 echo
 echo "${bold}Setup complete${normal}"
 echo
+echo 
