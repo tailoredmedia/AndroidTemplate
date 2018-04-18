@@ -32,7 +32,7 @@ def network = dependencyGroup {
 }
 
 def util = dependencyGroup {
-    implementation 'com.jakewharton.timber:timber:4.6.1'
+    implementation 'com.jakewharton.timber:timber:4.7.0'
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
