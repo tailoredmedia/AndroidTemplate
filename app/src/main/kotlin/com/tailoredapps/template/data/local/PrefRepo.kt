@@ -14,5 +14,8 @@ package com.tailoredapps.template.data.local
  * See the License for the specific language governing permissions and
  * limitations under the License. */
 interface PrefRepo {
-    var realmEncryptionKey: ByteArray?
+    var encryptionKey: ByteArray?
+    val encryptionKeyAlias: String
+
+    fun changeEncryptionKeySuffix()
 }

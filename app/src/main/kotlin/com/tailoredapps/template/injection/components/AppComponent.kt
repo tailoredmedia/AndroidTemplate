@@ -3,7 +3,7 @@ package com.tailoredapps.template.injection.components
 import android.content.Context
 import android.content.res.Resources
 import com.squareup.leakcanary.RefWatcher
-import com.tailoredapps.template.data.local.MyRepo
+import com.tailoredapps.template.data.local.PrefRepo
 import com.tailoredapps.template.data.local.encryption.EncryptionKeyManager
 import com.tailoredapps.template.data.remote.MyApi
 import com.tailoredapps.template.injection.modules.AppModule
@@ -13,7 +13,6 @@ import com.tailoredapps.template.injection.qualifier.AppContext
 import com.tailoredapps.template.injection.scopes.PerApplication
 import com.tailoredapps.template.ui.base.feedback.Toaster
 import dagger.Component
-import io.realm.Realm
 
 /* Copyright 2016 Patrick Löwenstein
  *
@@ -45,8 +44,7 @@ interface AppComponentProvides {
 
     fun encryptionKeyManager(): EncryptionKeyManager
 
-    fun realm(): Realm
-    fun myRepo(): MyRepo
+    fun prefRepo(): PrefRepo
     fun myApi(): MyApi
 
     fun toaster(): Toaster

@@ -14,21 +14,17 @@
 
 package com.tailoredapps.template
 
-
 import android.app.Application
 import android.content.res.Resources
 import com.squareup.leakcanary.LeakCanary
 import com.tailoredapps.template.injection.components.AppComponent
 import com.tailoredapps.template.injection.components.DaggerAppComponent
 import com.tailoredapps.template.injection.modules.AppModule
-import com.tailoredapps.template.util.*
 import io.reactivex.plugins.RxJavaPlugins
-import io.realm.Realm
-import paperparcel.Adapter
 import paperparcel.ProcessorConfig
 import timber.log.Timber
 
-@ProcessorConfig(adapters = [(Adapter(RealmListPaperParcelTypeConverter::class))])
+@ProcessorConfig(adapters = [])
 class MyApp : Application() {
 
     override fun onCreate() {
@@ -42,8 +38,6 @@ class MyApp : Application() {
                 .appModule(AppModule(this))
                 .build()
 
-        appComponent.encryptionKeyManager().initEncryptedRealm()
-
         RxJavaPlugins.setErrorHandler({ Timber.e(it) })
     }
 
@@ -54,9 +48,6 @@ class MyApp : Application() {
 
         lateinit var appComponent: AppComponent
             private set
-
-        val realm: Realm
-            get() = appComponent.realm()
 
         val res: Resources
             get() = instance.resources

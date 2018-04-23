@@ -1,7 +1,5 @@
 package com.tailoredapps.template.injection.modules
 
-import com.tailoredapps.template.data.local.MyRepo
-import com.tailoredapps.template.data.local.MyRepoImpl
 import com.tailoredapps.template.data.local.PrefRepo
 import com.tailoredapps.template.data.local.SharedPrefRepo
 
@@ -23,9 +21,6 @@ import dagger.Module
  * limitations under the License. */
 @Module
 abstract class DataModule {
-
-    @Binds
-    internal abstract fun bindMyRepo(repo: MyRepoImpl): MyRepo
 
     @Binds
     internal abstract fun bindPrefRepo(repo: SharedPrefRepo): PrefRepo

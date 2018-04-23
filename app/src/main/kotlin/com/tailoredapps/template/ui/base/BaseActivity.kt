@@ -17,8 +17,6 @@ import com.tailoredapps.template.ui.base.view.MvvmView
 import com.tailoredapps.template.ui.base.viewmodel.MvvmViewModel
 import com.tailoredapps.template.util.extensions.attachViewOrThrowRuntimeException
 import io.reactivex.disposables.CompositeDisposable
-import io.realm.Realm
-import timber.log.Timber
 import javax.inject.Inject
 
 /* Copyright 2016 Patrick Löwenstein
@@ -54,11 +52,6 @@ import javax.inject.Inject
  * Your subclass must implement the MvvmView implementation that you use in your
  * view model. */
 abstract class BaseActivity<B : ViewDataBinding, VM : MvvmViewModel<*>> : AppCompatActivity(), MvvmView {
-
-
-    // Inject a Realm INSTANCE into every Activity, since the INSTANCE
-    // is cached and reused for a thread (avoids create/destroy overhead)
-    @Inject protected lateinit var realm: Realm
 
     protected lateinit var binding: B
     @Inject protected lateinit var viewModel: VM
@@ -100,7 +93,6 @@ abstract class BaseActivity<B : ViewDataBinding, VM : MvvmViewModel<*>> : AppCom
         viewModel.detachView()
         refWatcher.watch(activityComponent)
         refWatcher.watch(viewModel)
-        realm.close()
     }
 
     /* Sets the content view, creates the binding and attaches the view to the view model */

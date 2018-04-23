@@ -11,7 +11,6 @@ import com.tailoredapps.template.ui.base.feedback.ApplicationToaster
 import com.tailoredapps.template.ui.base.feedback.Toaster
 import dagger.Module
 import dagger.Provides
-import io.realm.Realm
 
 /* Copyright 2016 Patrick Löwenstein
  *
@@ -42,14 +41,9 @@ class AppModule(private val app: Application) {
     @PerApplication
     internal fun provideResources(): Resources = app.resources
 
-
     @Provides
     @PerApplication
     internal fun provideRefWatcher(): RefWatcher = LeakCanary.install(app)
-
-    @Provides
-    internal fun provideRealm(): Realm = Realm.getDefaultInstance()
-
 
     @Provides
     @PerApplication
