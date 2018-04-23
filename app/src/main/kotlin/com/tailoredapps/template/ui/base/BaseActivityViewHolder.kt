@@ -11,7 +11,6 @@ import com.tailoredapps.template.ui.base.view.MvvmView
 import com.tailoredapps.template.ui.base.viewmodel.MvvmViewModel
 import com.tailoredapps.template.util.extensions.attachViewOrThrowRuntimeException
 import com.tailoredapps.template.util.extensions.castWithUnwrap
-import timber.log.Timber
 import javax.inject.Inject
 
 /* Copyright 2016 Patrick Löwenstein

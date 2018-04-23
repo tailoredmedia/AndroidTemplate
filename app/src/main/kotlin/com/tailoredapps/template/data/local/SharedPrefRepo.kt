@@ -24,23 +24,44 @@ import javax.inject.Inject
  * See the License for the specific language governing permissions and
  * limitations under the License. */
 @PerApplication
-class SharedPrefRepo @Inject
+class SharedPrefRepo
+@Inject
 constructor(@AppContext context: Context) : PrefRepo {
 
     private val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
-    override var realmEncryptionKey: ByteArray?
+    override var encryptionKey: ByteArray?
         get() {
-            if (prefs.contains(REALM_ENCRYPTION_KEY)) {
-                return Base64.decode(prefs.getString(REALM_ENCRYPTION_KEY, null), Base64.DEFAULT)
+            if (prefs.contains(ENCRYPTION_KEY)) {
+                return Base64.decode(prefs.getString(ENCRYPTION_KEY, null), Base64.DEFAULT)
             } else {
                 return null
             }
         }
-        set(key) = prefs.edit().putString(REALM_ENCRYPTION_KEY, Base64.encodeToString(key, Base64.DEFAULT)).apply()
+        set(key) {
+            if(key == null) {
+                prefs.edit().remove(ENCRYPTION_KEY).apply()
+            } else {
+                prefs.edit().putString(ENCRYPTION_KEY, Base64.encodeToString(key, Base64.DEFAULT)).apply()
+            }
+        }
+
+    private var encryptionKeySuffix: Int
+        get() = prefs.getInt(ENCRYPTION_KEY_SUFFIX, 0)
+        set(value) = prefs.edit().putInt(ENCRYPTION_KEY_SUFFIX, value).apply()
+
+
+    override val encryptionKeyAlias: String get() = ENCRYPTION_KEY_ALIAS + encryptionKeySuffix
+
+    override fun changeEncryptionKeySuffix() {
+        encryptionKeySuffix += 1
+    }
 
     companion object {
-        private val REALM_ENCRYPTION_KEY = "realm_encryption_key"
+        private const val ENCRYPTION_KEY_ALIAS = "mainKey"
+
+        private const val ENCRYPTION_KEY = "encryption_key"
+        private const val ENCRYPTION_KEY_SUFFIX = "encryption_key_suffix"
     }
 
 }
