@@ -44,13 +44,14 @@ private fun Context.rxDialogInternal(title: String, text: String,
                                      positiveText: String, negativeText: String?,
                                      cancelable: Boolean
 ): Completable = Completable.create { emitter ->
-    AlertDialog.Builder(this).apply {
+    val alert = AlertDialog.Builder(this).apply {
         setTitle(title)
         setMessage(text)
         setPositiveButton(positiveText, { _, _ -> emitter.onComplete() })
         if (negativeText != null) setNegativeButton(negativeText, { _, _ -> emitter.onError(RxDialogException.negative()) })
         setCancelable(cancelable)
         if (cancelable) setOnCancelListener { emitter.onError(RxDialogException.canceled()) }
-        show()
-    }
+    }.create()
+    emitter.setCancellable(alert::dismiss)
+    alert.show()
 }
