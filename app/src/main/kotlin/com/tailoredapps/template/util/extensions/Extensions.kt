@@ -14,6 +14,8 @@
 
 package com.tailoredapps.template.util.extensions
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.app.Fragment
@@ -44,6 +46,19 @@ fun <V : MvvmView> MvvmViewModel<V>.attachViewOrThrowRuntimeException(view: Mvvm
     }
 }
 
+
 // Fragment
 
 inline fun Fragment.withArgs(argsFun: Bundle.() -> Unit) = apply { arguments = Bundle().apply(argsFun) }
+
+
+//Intent creators
+
+val String.webIntent: Intent
+    get() = Intent(Intent.ACTION_VIEW, Uri.parse(this)) //url
+val String.mailIntent: Intent
+    get() = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$this")) //mail
+val String.callIntent: Intent
+    get() = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$this")) //number
+val String.mapsIntent: Intent
+    get() = Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.co.in/maps?q=$this")) //location
