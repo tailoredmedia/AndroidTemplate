@@ -2,7 +2,7 @@
 apply plugin: 'com.github.ben-manes.versions'
 
 buildscript {
-    ext.kotlinVersion = '1.2.40'
+    ext.kotlinVersion = '1.2.41'
     ext.gradlePluginVersion = '3.1.1'
     ext.mockitoVersion = '2.18.3'
     ext.powerMockVersion = '2.0.0-beta.5'
@@ -10,7 +10,7 @@ buildscript {
     ext.retrofitVersion = '2.4.0'
     ext.okHttpVersion = '3.10.0'
     ext.daggerVersion = '2.15'
-    ext.paperParcelVersion = '2.0.4'
+    ext.paperParcelVersion = '2.0.6'
 
     repositories {
         jcenter()

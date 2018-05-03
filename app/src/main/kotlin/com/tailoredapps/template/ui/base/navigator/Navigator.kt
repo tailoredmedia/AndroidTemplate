@@ -1,10 +1,10 @@
 package com.tailoredapps.template.ui.base.navigator
 
 import android.app.Activity
-import android.app.DialogFragment
 import android.content.Intent
 import android.net.Uri
 import android.support.annotation.IdRes
+import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 
 /* Copyright 2016 Patrick Löwenstein
@@ -42,7 +42,7 @@ interface Navigator {
 
     fun startActivityForResult(activityClass: Class<out Activity>, requestCode: Int, adaptIntentFun: (Intent.() -> Unit)? = null)
 
-    fun <T : DialogFragment> showDialogFragment(dialog: T, fragmentTag: String = dialog.javaClass.name)
+    fun <T : DialogFragment> showDialogFragment(dialog: T, fragmentTag: String = dialog::class.java.name)
 
     fun replaceFragment(@IdRes containerId: Int, fragment: Fragment, fragmentTag: String? = null)
     fun replaceFragmentAndAddToBackStack(@IdRes containerId: Int, fragment: Fragment, fragmentTag: String? = null, backstackTag: String? = null)

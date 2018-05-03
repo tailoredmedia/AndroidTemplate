@@ -1,10 +1,10 @@
 package com.tailoredapps.template.ui.base.navigator
 
 import android.app.Activity
-import android.app.DialogFragment
 import android.content.Intent
 import android.net.Uri
 import android.support.annotation.IdRes
+import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
@@ -31,6 +31,8 @@ import android.support.v4.app.FragmentManager
  */
 open class ActivityNavigator(protected val activity: FragmentActivity) : Navigator {
 
+    open protected val fragmentManager get() = activity.supportFragmentManager
+
     override fun finishActivity() {
         activity.finish()
     }
@@ -46,11 +48,11 @@ open class ActivityNavigator(protected val activity: FragmentActivity) : Navigat
     }
 
     override fun startActivity(intent: Intent) {
-        activity.startActivity(intent)
+        startActivityInternal(intent)
     }
 
     override fun startActivity(action: String, uri: Uri?) {
-        activity.startActivity(Intent(action, uri))
+        startActivityInternal(Intent(action, uri))
     }
 
     override fun startActivity(activityClass: Class<out Activity>, adaptIntentFun: (Intent.() -> Unit)?) {
@@ -63,6 +65,10 @@ open class ActivityNavigator(protected val activity: FragmentActivity) : Navigat
 
     private fun startActivityInternal(activityClass: Class<out Activity>, requestCode: Int?, adaptIntentFun: (Intent.() -> Unit)?) {
         val intent = Intent(activity, activityClass)
+        startActivityInternal(intent, requestCode, adaptIntentFun)
+    }
+
+    open protected fun startActivityInternal(intent: Intent, requestCode: Int? = null, adaptIntentFun: (Intent.() -> Unit)? = null) {
         adaptIntentFun?.invoke(intent)
 
         if (requestCode != null) {
@@ -73,11 +79,11 @@ open class ActivityNavigator(protected val activity: FragmentActivity) : Navigat
     }
 
     override fun replaceFragment(@IdRes containerId: Int, fragment: Fragment, fragmentTag: String?) {
-        replaceFragmentInternal(activity.supportFragmentManager, containerId, fragment, fragmentTag, false, null)
+        replaceFragmentInternal(fragmentManager, containerId, fragment, fragmentTag, false, null)
     }
 
     override fun replaceFragmentAndAddToBackStack(@IdRes containerId: Int, fragment: Fragment, fragmentTag: String?, backstackTag: String?) {
-        replaceFragmentInternal(activity.supportFragmentManager, containerId, fragment, fragmentTag, true, backstackTag)
+        replaceFragmentInternal(fragmentManager, containerId, fragment, fragmentTag, true, backstackTag)
     }
 
     protected fun replaceFragmentInternal(fm: FragmentManager, @IdRes containerId: Int, fragment: Fragment, fragmentTag: String?, addToBackstack: Boolean, backstackTag: String?) {
@@ -91,10 +97,10 @@ open class ActivityNavigator(protected val activity: FragmentActivity) : Navigat
     }
 
     override fun <T : DialogFragment> showDialogFragment(dialog: T, fragmentTag: String) {
-        dialog.show(activity.fragmentManager, fragmentTag)
+        dialog.show(fragmentManager, fragmentTag)
     }
 
     override fun popFragmentBackStackImmediate() {
-        activity.supportFragmentManager.popBackStackImmediate()
+        fragmentManager.popBackStackImmediate()
     }
 }

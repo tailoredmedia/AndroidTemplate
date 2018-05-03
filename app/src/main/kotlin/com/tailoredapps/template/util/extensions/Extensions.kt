@@ -14,8 +14,6 @@
 
 package com.tailoredapps.template.util.extensions
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.app.Fragment
