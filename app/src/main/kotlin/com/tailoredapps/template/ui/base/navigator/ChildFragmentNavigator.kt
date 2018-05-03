@@ -1,7 +1,9 @@
 package com.tailoredapps.template.ui.base.navigator
 
+import android.content.Intent
 import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 
 /* Copyright 2017 Patrick Löwenstein
  *
@@ -22,16 +24,29 @@ import android.support.v4.app.Fragment
  * FILE MODIFIED 2017 Tailored Media GmbH */
 class ChildFragmentNavigator(private val fragment: Fragment) : ActivityNavigator(fragment.activity!!), FragmentNavigator {
 
+    override val fragmentManager: FragmentManager? get() = fragment.fragmentManager
+    private val childFragmentManager get() = fragment.childFragmentManager
+
+    override fun startActivityInternal(intent: Intent, requestCode: Int?, adaptIntentFun: (Intent.() -> Unit)?) {
+        adaptIntentFun?.invoke(intent)
+
+        if (requestCode != null) {
+            fragment.startActivityForResult(intent, requestCode)
+        } else {
+            fragment.startActivity(intent)
+        }
+    }
+
     override fun replaceChildFragment(@IdRes containerId: Int, fragment: Fragment, fragmentTag: String?) {
-        replaceFragmentInternal(fragment.childFragmentManager, containerId, fragment, fragmentTag, false, null)
+        replaceFragmentInternal(childFragmentManager, containerId, fragment, fragmentTag, false, null)
     }
 
     override fun replaceChildFragmentAndAddToBackStack(@IdRes containerId: Int, fragment: Fragment, fragmentTag: String?, backstackTag: String?) {
-        replaceFragmentInternal(fragment.childFragmentManager, containerId, fragment, fragmentTag, true, backstackTag)
+        replaceFragmentInternal(childFragmentManager, containerId, fragment, fragmentTag, true, backstackTag)
     }
 
     override fun popChildFragmentBackstackImmediate() {
-        fragment.childFragmentManager.popBackStackImmediate()
+        childFragmentManager.popBackStackImmediate()
     }
 
 }
