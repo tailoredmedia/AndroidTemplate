@@ -1,0 +1,280 @@
+/*
+ * Copyright (C) 2018 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+
+/**
+* Shared file between builds so that they can all use the same dependencies and
+* maven repositories.
+**/
+ext.deps = [:]
+
+def versions = [:]
+
+/* gradle */
+versions.android_gradle_plugin = "3.2.0-alpha15"
+
+/* kotlin */
+versions.kotlin = "1.2.41"
+versions.anko = "0.10.5"
+
+/* androidx */
+versions.androidx = "1.0.0-alpha1"
+versions.androidx_arch_core = "2.0.0-alpha1"
+versions.androidx_constraintlayout = "1.1.0"
+versions.androidx_appcompat = "1.0.0-alpha1"
+versions.androidx_cardview = "1.0.0-alpha1"
+versions.androidx_material = "1.0.0-alpha1"
+versions.androidx_wear = "1.0.0-alpha1"
+versions.androidx_databinding = "3.2.0-alpha15"
+
+versions.androidx_room = "2.0.0-alpha1"
+versions.androidx_lifecycle = "2.0.0-alpha1"
+versions.androidx_paging = "2.0.0-alpha1"
+versions.androidx_navigation = "1.0.0-alpha01"
+
+/* dagger */
+versions.dagger = "2.16"
+
+/* firebase */
+versions.firebase = "15.0.2"
+versions.firebase_database = "15.0.0"
+
+/* utils */
+versions.timber = "4.7.0"
+versions.glide = "4.7.1"
+versions.stetho = "1.5.0"
+versions.butterKnife = "8.8.1"
+versions.conceal = "2.0.2@aar"
+versions.leakcanary = "1.5.4"
+versions.ktx = "1.0.0-alpha1"
+versions.rxPermission = "0.9.5@aar"
+
+versions.rxjava2 = "2.1.3"
+versions.rx_android = "2.0.1"
+versions.rxkotlin = "2.2.0"
+versions.paperparcel = "2.0.6"
+
+versions.okhttp3_runtime = "3.9.1"
+versions.okhttp3_logging_interceptor = "3.9.0"
+
+versions.retrofit = "2.3.0"
+versions.moshi_kotlin = "1.5.0"
+versions.mockwebserver = "3.8.1"
+
+/* realm */
+versions.realm = "5.1.0"
+
+/* testings */
+versions.junit = "4.12"
+versions.espresso = "3.1.0-alpha1"
+
+versions.apache_commons = "2.5"
+versions.mockito = "2.7.19"
+versions.mockito_all = "1.10.19"
+versions.dexmaker = "2.2.0"
+
+
+versions.atsl_runner = "1.1.0-alpha1"
+versions.atsl_rules = "1.1.0-alpha1"
+versions.hamcrest = "1.3"
+
+def build_versions = [:]
+build_versions.min_sdk = 14
+build_versions.target_sdk = 27
+build_versions.compile_sdk = "android-P"
+//build_versions.build_tools = "27.0.3"
+ext.build_versions = build_versions
+
+
+def deps = [:]
+deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+
+
+/* kotlin */
+def kotlin = [:]
+kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
+kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
+kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+kotlin.allopen = "org.jetbrains.kotlin:kotlin-allopen:$versions.kotlin"
+kotlin.reflect = "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin"
+kotlin.anko = "org.jetbrains.anko:anko:$versions.anko"
+
+deps.kotlin = kotlin
+
+
+/* androidx */
+def androidx = [:]
+androidx.annotation = "androidx.annotation:annotation:${versions.androidx}"
+androidx.constraintlayout = "androidx.constraintlayout:constraintlayout:${versions.androidx_constraintlayout}"
+androidx.appcompat = "androidx.appcompat:appcompat:${versions.androidx_appcompat}"
+androidx.cardview = "androidx.cardview:cardview:${versions.androidx_cardview}"
+androidx.material = "com.google.android.material:material:${versions.androidx_material}"
+androidx.wear = "androidx.wear:wear:${versions.androidx_wear}"
+
+androidx.fragment = "androidx.fragment:fragment:${versions.androidx}"
+androidx.recyclerview = "androidx.recyclerview:recyclerview:${versions.androidx}"
+androidx.databinding_compiler = "androidx.databinding:databinding-compiler:${versions.androidx_databinding}"
+
+/* versions.androidx_arch_core */
+def arch_core = [:]
+arch_core.core = "androidx.arch.core:core:${versions.androidx_arch_core}"
+arch_core.common = "androidx.arch.core:core-common:${versions.androidx_arch_core}"
+arch_core.runtime = "androidx.arch.core:core-runtime:${versions.androidx_arch_core}"
+arch_core.testing = "androidx.arch.core:core-testing:${versions.androidx_arch_core}"
+androidx.arch_core = arch_core
+
+/* androidx_room */
+def room = [:]
+room.runtime = "androidx.room:room-runtime:$versions.androidx_room"
+room.compiler = "androidx.room:room-compiler:$versions.androidx_room" //annotationProcessor or kapt
+room.rxjava2 = "androidx.room:rxjava2:$versions.androidx_room"
+room.testing = "androidx.room:room-testing:$versions.androidx_room" //testImplementation
+androidx.room = room
+
+/* androidx_lifecycle */
+def lifecycle = [:]
+lifecycle.runtime = "androidx.lifecycle:lifecycle-runtime:${versions.androidx_lifecycle}"
+// ViewModel and LiveData
+lifecycle.extensions = "androidx.lifecycle:lifecycle-extensions:${versions.androidx_lifecycle}"
+// alternatively - just ViewModel
+lifecycle.viewmodel = "androidx.lifecycle:lifecycle-viewmodel:${versions.androidx_lifecycle}"
+// alternatively - just LiveData
+lifecycle.livedata = "androidx.lifecycle:lifecycle-livedata:${versions.androidx_lifecycle}"
+lifecycle.compiler = "androidx.lifecycle:lifecycle-compiler:${versions.androidx_lifecycle}" //annotationProcessor or kapt
+// alternately - if using Java8, use the following instead of lifecycle-compiler
+lifecycle.java8 = "androidx.lifecycle:lifecycle-common-java8:${versions.androidx_lifecycle}"
+androidx.lifecycle = lifecycle
+
+/* androidx_paging */
+def paging = [:]
+paging.runtime = "androidx.paging:paging-runtime:${versions.androidx_paging}" //implementation
+paging.testing = "androidx.paging:paging-common:${versions.androidx_paging}" //testImplementation
+paging.rxjava2 = "androidx.paging:paging-rxjava2:${versions.androidx_paging}" //implementation
+androidx.paging = paging
+
+/* androidx_navigation to be released in the future */ 
+/* https://developer.android.com/topic/libraries/architecture/adding-components#navigation */
+def navigation = [:]
+navigation.fragment = "androidx.navigation:navigation-fragment:${versions.androidx_navigation}"
+navigation.ui = "androidx.navigation:navigation-ui:${versions.androidx_navigation}"
+navigation.fragment_ktx = "androidx.navigation:navigation-fragment-ktx:${versions.androidx_navigation}"
+navigation.ui_ktx = "androidx.navigation:navigation-ui-ktx:${versions.androidx_navigation}"
+navigation.testing = "androidx.navigation:navigation-testing:${versions.androidx_navigation}"
+androidx.navigation = navigation
+
+deps.androidx = androidx
+
+/* androidx_workmanager to be released in the future */ 
+/* https://developer.android.com/topic/libraries/architecture/adding-components#workmanager */
+
+
+/* dagger */
+def dagger = [:]
+dagger.runtime = "com.google.dagger:dagger:$versions.dagger"
+dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
+dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dagger"
+dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger" //annotationProcessor or kapt
+dagger.android_support_compiler = "com.google.dagger:dagger-android-processor:$versions.dagger" //annotationProcessor or kapt
+
+deps.dagger = dagger
+
+/* firebase */
+def firebase = [:]
+firebase.core = "com.google.firebase:firebase-core:${versions.firebase}"
+firebase.database = "com.google.firebase:firebase-database:${versions.firebase_database}"
+
+deps.firebase = firebase
+
+/* utils */
+deps.timber = "com.jakewharton.timber:timber:${versions.timber}"
+deps.conceal = "com.facebook.conceal:conceal:${versions.conceal}"
+deps.rxjava2 = "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
+deps.rxkotlin = "io.reactivex.rxjava2:rxkotlin:$versions.rxkotlin"
+deps.rx_android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
+deps.ktx = "androidx.core:core-ktx:${versions.ktx}"
+deps.rxpermissions2 = "com.tbruyelle.rxpermissions2:rxpermissions:${versions.rxPermission}"
+
+def glide = [:]
+glide.runtime = "com.github.bumptech.glide:glide:$versions.glide"
+glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
+deps.glide = glide
+
+def paperparcel = [:]
+paperparcel.runtime = "nz.bradcampbell:paperparcel:${versions.paperparcel}"
+paperparcel.kotlin = "nz.bradcampbell:paperparcel-kotlin:${versions.paperparcel}"
+paperparcel.compiler = "nz.bradcampbell:paperparcel-compiler:${versions.paperparcel}"
+deps.paperparcel = paperparcel
+
+def retrofit = [:]
+retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+retrofit.moshi = "com.squareup.retrofit2:converter-moshi:$versions.retrofit"
+retrofit.moshi_kotlin = "com.squareup.moshi:moshi-kotlin:${versions.moshi_kotlin}"
+retrofit.rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+retrofit.mock = "com.squareup.retrofit2:retrofit-mock:$versions.retrofit"
+deps.retrofit = retrofit
+
+def okhttp3 = [:]
+okhttp3.runtime = "com.squareup.okhttp3:okhttp:${versions.okhttp3}"
+okhttp3.okhttp_logging_interceptor = "com.squareup.okhttp3:logging-interceptor:${versions.okhttp3_logging_interceptor}"
+deps.okhttp3 = okhttp3
+
+def stetho = [:]
+stetho.core = "com.facebook.stetho:stetho:${versions.stetho}"
+stetho.okhttp3 = "com.facebook.stetho:stetho-okhttp3:${versions.stetho}"
+deps.stetho = stetho
+
+/* testing */
+
+deps.leakcanary = "com.squareup.leakcanary:leakcanary-android:${versions.leakcanary}" //debugImplementation
+deps.leakcanary_no_op = "com.squareup.leakcanary:leakcanary-android-no-op:${versions.leakcanary}" //releaseImplementation
+
+
+def espresso = [:]
+espresso.core = "androidx.test.espresso:espresso-core:$versions.espresso"
+espresso.contrib = "androidx.test.espresso:espresso-contrib:$versions.espresso"
+espresso.intents = "androidx.test.espresso:espresso-intents:$versions.espresso"
+espresso.idling = "androidx.test.espresso:espresso-idling-resource:$versions.espresso"
+deps.espresso = espresso
+
+def atsl = [:]
+atsl.runner = "androidx.test:runner:$versions.atsl_runner"
+atsl.rules = "androidx.test:rules:$versions.atsl_rules"
+deps.atsl = atsl
+
+def mockito = [:]
+mockito.core = "org.mockito:mockito-core:$versions.mockito"
+mockito.android = "org.mockito:mockito-android:$versions.mockito"
+mockito.all = "org.mockito:mockito-all:$versions.mockito_all"
+deps.mockito = mockito
+
+
+deps.dexmaker = "com.linkedin.dexmaker:dexmaker-mockito:$versions.dexmaker"
+deps.junit = "junit:junit:$versions.junit"
+deps.mock_web_server = "com.squareup.okhttp3:mockwebserver:$versions.mockwebserver"
+deps.hamcrest = "org.hamcrest:hamcrest-all:$versions.hamcrest"
+
+ext.deps = deps
+
+
+
+def addRepos(RepositoryHandler handler) {
+    handler.google()
+    handler.jcenter()
+    handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+}
+ext.addRepos = this.&addRepos

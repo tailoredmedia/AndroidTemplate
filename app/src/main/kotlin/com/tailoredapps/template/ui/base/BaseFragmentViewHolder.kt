@@ -1,11 +1,11 @@
 package com.tailoredapps.template.ui.base
 
 import android.content.Context
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import com.tailoredapps.template.BR
 import com.tailoredapps.template.injection.components.DaggerFragmentViewHolderComponent
@@ -28,7 +28,7 @@ import javax.inject.Inject
  *
  * Your subclass must implement the MvvmView implementation that you use in your
  * view model. */
-abstract class BaseFragmentViewHolder<B : ViewDataBinding, VM : MvvmViewModel<*>>(itemView: View) : RecyclerView.ViewHolder(itemView), MvvmView {
+abstract class BaseFragmentViewHolder<B : ViewDataBinding, VM : MvvmViewModel<*>>(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), MvvmView {
 
     protected lateinit var binding: B
     @Inject lateinit var viewModel: VM
@@ -54,8 +54,8 @@ abstract class BaseFragmentViewHolder<B : ViewDataBinding, VM : MvvmViewModel<*>
         viewModel.attachViewOrThrowRuntimeException(this, null)
     }
 
-    private inline fun <reified T : Fragment> Context.getFragment(containerId: Int) =
-            castWithUnwrap<FragmentActivity>()?.run { supportFragmentManager.findFragmentById(containerId) as? T }
+    private inline fun <reified T : androidx.fragment.app.Fragment> Context.getFragment(containerId: Int) =
+            castWithUnwrap<androidx.fragment.app.FragmentActivity>()?.run { supportFragmentManager.findFragmentById(containerId) as? T }
 
     fun executePendingBindings() {
         binding.executePendingBindings()

@@ -3,11 +3,11 @@ package com.tailoredapps.template.ui.base.navigator
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.support.annotation.IdRes
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
+import androidx.annotation.IdRes
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 
 /* Copyright 2016 Patrick Löwenstein
  *
@@ -29,7 +29,7 @@ import android.support.v4.app.FragmentManager
  * FILE CHANGED 2017 Tailored Media GmbH
  *
  */
-open class ActivityNavigator(protected val activity: FragmentActivity) : Navigator {
+open class ActivityNavigator(protected val activity: androidx.fragment.app.FragmentActivity) : Navigator {
 
     open protected val fragmentManager get() = activity.supportFragmentManager
 
@@ -78,15 +78,15 @@ open class ActivityNavigator(protected val activity: FragmentActivity) : Navigat
         }
     }
 
-    override fun replaceFragment(@IdRes containerId: Int, fragment: Fragment, fragmentTag: String?) {
+    override fun replaceFragment(@IdRes containerId: Int, fragment: androidx.fragment.app.Fragment, fragmentTag: String?) {
         replaceFragmentInternal(fragmentManager, containerId, fragment, fragmentTag, false, null)
     }
 
-    override fun replaceFragmentAndAddToBackStack(@IdRes containerId: Int, fragment: Fragment, fragmentTag: String?, backstackTag: String?) {
+    override fun replaceFragmentAndAddToBackStack(@IdRes containerId: Int, fragment: androidx.fragment.app.Fragment, fragmentTag: String?, backstackTag: String?) {
         replaceFragmentInternal(fragmentManager, containerId, fragment, fragmentTag, true, backstackTag)
     }
 
-    protected fun replaceFragmentInternal(fm: FragmentManager, @IdRes containerId: Int, fragment: Fragment, fragmentTag: String?, addToBackstack: Boolean, backstackTag: String?) {
+    protected fun replaceFragmentInternal(fm: androidx.fragment.app.FragmentManager, @IdRes containerId: Int, fragment: androidx.fragment.app.Fragment, fragmentTag: String?, addToBackstack: Boolean, backstackTag: String?) {
         val ft = fm.beginTransaction().replace(containerId, fragment, fragmentTag)
         if (addToBackstack) {
             ft.addToBackStack(backstackTag).commit()
@@ -96,7 +96,7 @@ open class ActivityNavigator(protected val activity: FragmentActivity) : Navigat
         }
     }
 
-    override fun <T : DialogFragment> showDialogFragment(dialog: T, fragmentTag: String) {
+    override fun <T : androidx.fragment.app.DialogFragment> showDialogFragment(dialog: T, fragmentTag: String) {
         dialog.show(fragmentManager, fragmentTag)
     }
 

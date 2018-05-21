@@ -14,8 +14,8 @@
 
 package com.tailoredapps.template.util
 
-import android.databinding.BaseObservable
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.BaseObservable
+import androidx.recyclerview.widget.RecyclerView
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -52,10 +52,10 @@ class NotifyPropertyChangedDelegate<T>(private var value: T, private val propert
 /**
  *  Delegated property that calls notifyDataSetChanged() every time the property get's changed.
  */
-class NotifyDatasetChangedDelegate<T>(private var value: T) : ReadWriteProperty<RecyclerView.Adapter<*>, T> {
-    override fun getValue(thisRef: RecyclerView.Adapter<*>, property: KProperty<*>): T =  value
+class NotifyDatasetChangedDelegate<T>(private var value: T) : ReadWriteProperty<androidx.recyclerview.widget.RecyclerView.Adapter<*>, T> {
+    override fun getValue(thisRef: androidx.recyclerview.widget.RecyclerView.Adapter<*>, property: KProperty<*>): T =  value
 
-    override fun setValue(thisRef: RecyclerView.Adapter<*>, property: KProperty<*>, value: T) {
+    override fun setValue(thisRef: androidx.recyclerview.widget.RecyclerView.Adapter<*>, property: KProperty<*>, value: T) {
         if (this.value !== value) {
             this.value = value
             thisRef.notifyDataSetChanged()

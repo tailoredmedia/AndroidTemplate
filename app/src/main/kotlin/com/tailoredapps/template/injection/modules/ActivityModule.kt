@@ -1,8 +1,8 @@
 package com.tailoredapps.template.injection.modules
 
 import android.content.Context
-import android.support.v4.app.FragmentManager
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import androidx.appcompat.app.AppCompatActivity
 
 import com.tailoredapps.template.injection.qualifier.ActivityContext
 import com.tailoredapps.template.injection.qualifier.ActivityDisposable
@@ -41,7 +41,7 @@ class ActivityModule(private val activity: AppCompatActivity) {
     @Provides
     @PerActivity
     @ActivityFragmentManager
-    internal fun provideFragmentManager(): FragmentManager = activity.supportFragmentManager
+    internal fun provideFragmentManager(): androidx.fragment.app.FragmentManager = activity.supportFragmentManager
 
     @Provides
     @PerActivity
