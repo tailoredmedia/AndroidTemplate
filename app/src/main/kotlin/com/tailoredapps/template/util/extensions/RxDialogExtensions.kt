@@ -16,7 +16,7 @@ package com.tailoredapps.template.util.extensions
 
 import android.app.AlertDialog
 import android.content.Context
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import com.tailoredapps.template.util.exceptions.RxDialogException
 import io.reactivex.Completable
 

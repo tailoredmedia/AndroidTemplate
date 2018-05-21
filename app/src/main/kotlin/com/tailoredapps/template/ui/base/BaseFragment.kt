@@ -1,11 +1,11 @@
 package com.tailoredapps.template.ui.base
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.annotation.CallSuper
-import android.support.annotation.LayoutRes
-import android.support.v4.app.Fragment
+import androidx.annotation.CallSuper
+import androidx.annotation.LayoutRes
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,7 +53,7 @@ import javax.inject.Inject
  *
  * Your subclass must implement the MvvmView implementation that you use in your
  * view model. */
-abstract class BaseFragment<B : ViewDataBinding, VM : MvvmViewModel<*>> : Fragment(), MvvmView {
+abstract class BaseFragment<B : ViewDataBinding, VM : MvvmViewModel<*>> : androidx.fragment.app.Fragment(), MvvmView {
 
     protected lateinit var binding: B
     @Inject protected lateinit var viewModel: VM

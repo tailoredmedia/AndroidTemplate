@@ -14,16 +14,16 @@
 
 package com.tailoredapps.template.ui.base.feedback
 
-import android.support.annotation.StringRes
-import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.Snackbar
-import android.support.v4.app.FragmentActivity
+import androidx.annotation.StringRes
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.FragmentActivity
 import android.view.ViewGroup
 
-open class ActivitySnacker(val activity: FragmentActivity) : Snacker {
+open class ActivitySnacker(val activity: androidx.fragment.app.FragmentActivity) : Snacker {
 
-    private var actionSnackbar: Snackbar? = null
-    private var snackbar: Snackbar? = null
+    private var actionSnackbar: com.google.android.material.snackbar.Snackbar? = null
+    private var snackbar: com.google.android.material.snackbar.Snackbar? = null
 
     override fun show(title: CharSequence) = showInternal(title, null, null)
     override fun show(@StringRes titleRes: Int) = showInternal(activity.getString(titleRes), null, null)
@@ -36,14 +36,14 @@ open class ActivitySnacker(val activity: FragmentActivity) : Snacker {
         hideSnack()
 
         val coordinator = activity.findViewById<ViewGroup>(android.R.id.content).getChildAt(0)
-        val attachView = if (coordinator != null && coordinator is CoordinatorLayout) coordinator else activity.findViewById<ViewGroup>(android.R.id.content)
+        val attachView = if (coordinator != null && coordinator is androidx.coordinatorlayout.widget.CoordinatorLayout) coordinator else activity.findViewById<ViewGroup>(android.R.id.content)
 
         if (action != null && actionText != null) {
-            actionSnackbar = Snackbar.make(attachView, title, Snackbar.LENGTH_INDEFINITE)
+            actionSnackbar = com.google.android.material.snackbar.Snackbar.make(attachView, title, com.google.android.material.snackbar.Snackbar.LENGTH_INDEFINITE)
                     .setAction(actionText) { action() }
                     .apply { show() }
         } else {
-            snackbar = Snackbar.make(attachView, title, Snackbar.LENGTH_LONG)
+            snackbar = com.google.android.material.snackbar.Snackbar.make(attachView, title, com.google.android.material.snackbar.Snackbar.LENGTH_LONG)
                     .apply { show() }
         }
     }

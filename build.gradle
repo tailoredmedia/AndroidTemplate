@@ -2,25 +2,18 @@
 apply plugin: 'com.github.ben-manes.versions'
 
 buildscript {
-    ext.kotlinVersion = '1.2.41'
-    ext.gradlePluginVersion = '3.1.1'
-    ext.mockitoVersion = '2.18.3'
-    ext.powerMockVersion = '2.0.0-beta.5'
-    ext.supportLibVersion = '27.1.1'
-    ext.retrofitVersion = '2.4.0'
-    ext.okHttpVersion = '3.10.0'
-    ext.daggerVersion = '2.15'
-    ext.paperParcelVersion = '2.0.6'
+    apply from: 'android_libraries_version/versions.gradle'
 
-    repositories {
-        jcenter()
-        google()
-    }
+    ext.powerMockVersion = '2.0.0-beta.5'
+
+    addRepos(repositories)
 
     dependencies {
-        classpath "com.android.tools.build:gradle:$gradlePluginVersion"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath deps.android_gradle_plugin
+        classpath deps.kotlin.plugin
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.17.0'
+//        classpath "io.realm:realm-gradle-plugin:5.1.0"
+//        classpath 'com.google.gms:google-services:3.2.1'
     }
 }
 
@@ -29,6 +22,7 @@ allprojects {
         jcenter()
         google()
     }
+    addRepos(repositories)
 }
 
 task clean(type: Delete) {

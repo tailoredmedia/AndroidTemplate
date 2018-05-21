@@ -1,11 +1,11 @@
 package com.tailoredapps.template.ui.base
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.annotation.CallSuper
-import android.support.annotation.LayoutRes
-import android.support.v7.app.AppCompatActivity
+import androidx.annotation.CallSuper
+import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import com.squareup.leakcanary.RefWatcher
 import com.tailoredapps.template.BR
 import com.tailoredapps.template.MyApp

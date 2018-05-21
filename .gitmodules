@@ -1,0 +1,3 @@
+[submodule "android_libraries_version"]
+	path = android_libraries_version
+	url = https://github.com/1and1get2/android_libraries_version.git

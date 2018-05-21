@@ -1,8 +1,8 @@
 package com.tailoredapps.template.ui.base.viewmodel
 
-import android.databinding.BaseObservable
+import androidx.databinding.BaseObservable
 import android.os.Bundle
-import android.support.annotation.CallSuper
+import androidx.annotation.CallSuper
 
 import com.tailoredapps.template.ui.base.view.MvvmView
 

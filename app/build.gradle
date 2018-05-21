@@ -3,8 +3,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    compileSdkVersion build_versions.compile_sdk
+//    buildToolsVersion "27.0.3"
+
     signingConfigs {
         release {
             keyAlias 'mykeyalias'
@@ -15,8 +16,8 @@ android {
     }
     defaultConfig {
         applicationId "com.tailoredapps.template"
-        minSdkVersion 21
-        targetSdkVersion 27
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
         versionCode 1
         versionName "1.0.0"
         vectorDrawables.useSupportLibrary = true
@@ -77,17 +78,15 @@ dependencies {
     /**
      * UI
      */
+    implementation deps.androidx.constraintlayout
+    implementation deps.androidx.material
+    implementation deps.androidx.appcompat
+    implementation deps.androidx.cardview
 
-    implementation "com.android.support:support-fragment:$supportLibVersion"
-    implementation "com.android.support:support-core-ui:$supportLibVersion"
-    implementation "com.android.support:appcompat-v7:$supportLibVersion"
-    implementation "com.android.support:cardview-v7:$supportLibVersion"
-    implementation "com.android.support:recyclerview-v7:$supportLibVersion"
-    implementation "com.android.support:design:$supportLibVersion"
 
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-
-    kapt "com.android.databinding:compiler:$gradlePluginVersion"
+    implementation deps.androidx.fragment
+    implementation deps.androidx.recyclerview
+    kapt deps.androidx.databinding_compiler
 
 
     /**
@@ -96,75 +95,84 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.2'
 
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+    implementation deps.retrofit.rxjava2
 
-    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+    implementation deps.okhttp3.runtime
+    implementation deps.okhttp3.okhttp_logging_interceptor
 
 
     /**
      * Dependency Injection
      */
 
-    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
-    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+
+    kapt deps.dagger.compiler
+    kapt deps.dagger.android_support_compiler
 
 
     /**
      * Rx
      */
 
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.13'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
+    implementation deps.rxjava2
+    implementation deps.rx_android
+    implementation deps.rxkotlin
+
+
+    /**
+     * kotlin
+     * */
+
+    implementation deps.kotlin.stdlib
 
 
     /**
      * Utils
      */
 
-    implementation 'com.jakewharton.timber:timber:4.7.0'
+    implementation deps.timber
 
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    debugImplementation deps.leakcanary
+    releaseImplementation deps.leakcanary_no_op
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-
-    implementation "nz.bradcampbell:paperparcel:$paperParcelVersion"
-    implementation "nz.bradcampbell:paperparcel-kotlin:$paperParcelVersion"
-    kapt "nz.bradcampbell:paperparcel-compiler:$paperParcelVersion"
-
+    implementation deps.paperparcel.runtime
+    implementation deps.paperparcel.kotlin
+    kapt deps.paperparcel.compiler
 
     /**
      * Testing
      */
 
-    testImplementation 'junit:junit:4.12'
-    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation deps.junit
+    testImplementation deps.mockito.core
     testImplementation "org.powermock:powermock-module-junit4:$powerMockVersion"
     testImplementation "org.powermock:powermock-module-junit4-rule:$powerMockVersion"
     testImplementation "org.powermock:powermock-api-mockito2:$powerMockVersion"
-    testImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-    testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
+    testImplementation deps.kotlin.stdlib
+    testImplementation deps.kotlin.reflect
+    testImplementation deps.kotlin.test
     testImplementation "com.nhaarman:mockito-kotlin-kt1.1:1.5.0"
     testImplementation "com.google.code.findbugs:jsr305:3.0.2"
 
-    androidTestImplementation "com.android.support:support-annotations:$supportLibVersion"
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test:rules:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
-    androidTestImplementation "org.mockito:mockito-android:$mockitoVersion"
-    androidTestImplementation('com.android.support.test.espresso:espresso-contrib:3.0.2') {
+    androidTestImplementation deps.androidx.annotation
+    androidTestImplementation deps.atsl.runner
+    androidTestImplementation deps.atsl.rules
+    androidTestImplementation deps.espresso.core
+    androidTestImplementation deps.espresso.intents
+    androidTestImplementation deps.mockito.android
+    androidTestImplementation deps.espresso.contrib, {
         exclude group: 'com.android.support', module: 'appcompat'
         exclude group: 'com.android.support', module: 'support-v4'
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
-    androidTestImplementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    androidTestImplementation deps.okhttp3.runtime
     androidTestImplementation 'com.jakewharton.espresso:okhttp3-idling-resource:1.0.0'
     androidTestImplementation "com.google.code.findbugs:jsr305:3.0.2"
 

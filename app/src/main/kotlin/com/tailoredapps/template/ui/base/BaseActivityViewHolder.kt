@@ -1,8 +1,8 @@
 package com.tailoredapps.template.ui.base
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import com.tailoredapps.template.BR
 import com.tailoredapps.template.injection.components.ActivityViewHolderComponent
@@ -44,7 +44,7 @@ import javax.inject.Inject
  *
  * Your subclass must implement the MvvmView implementation that you use in your
  * view model. */
-abstract class BaseActivityViewHolder<B : ViewDataBinding, VM : MvvmViewModel<*>>(itemView: View) : RecyclerView.ViewHolder(itemView), MvvmView {
+abstract class BaseActivityViewHolder<B : ViewDataBinding, VM : MvvmViewModel<*>>(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), MvvmView {
 
     protected lateinit var binding: B
     @Inject lateinit var viewModel: VM

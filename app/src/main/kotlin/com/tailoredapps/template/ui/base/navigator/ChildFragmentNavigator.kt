@@ -1,9 +1,9 @@
 package com.tailoredapps.template.ui.base.navigator
 
 import android.content.Intent
-import android.support.annotation.IdRes
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
+import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 
 /* Copyright 2017 Patrick Löwenstein
  *
@@ -22,9 +22,9 @@ import android.support.v4.app.FragmentManager
  * --------------
  *
  * FILE MODIFIED 2017 Tailored Media GmbH */
-class ChildFragmentNavigator(private val fragment: Fragment) : ActivityNavigator(fragment.activity!!), FragmentNavigator {
+class ChildFragmentNavigator(private val fragment: androidx.fragment.app.Fragment) : ActivityNavigator(fragment.activity!!), FragmentNavigator {
 
-    override val fragmentManager: FragmentManager? get() = fragment.fragmentManager
+    override val fragmentManager: androidx.fragment.app.FragmentManager? get() = fragment.fragmentManager
     private val childFragmentManager get() = fragment.childFragmentManager
 
     override fun startActivityInternal(intent: Intent, requestCode: Int?, adaptIntentFun: (Intent.() -> Unit)?) {
@@ -37,11 +37,11 @@ class ChildFragmentNavigator(private val fragment: Fragment) : ActivityNavigator
         }
     }
 
-    override fun replaceChildFragment(@IdRes containerId: Int, fragment: Fragment, fragmentTag: String?) {
+    override fun replaceChildFragment(@IdRes containerId: Int, fragment: androidx.fragment.app.Fragment, fragmentTag: String?) {
         replaceFragmentInternal(childFragmentManager, containerId, fragment, fragmentTag, false, null)
     }
 
-    override fun replaceChildFragmentAndAddToBackStack(@IdRes containerId: Int, fragment: Fragment, fragmentTag: String?, backstackTag: String?) {
+    override fun replaceChildFragmentAndAddToBackStack(@IdRes containerId: Int, fragment: androidx.fragment.app.Fragment, fragmentTag: String?, backstackTag: String?) {
         replaceFragmentInternal(childFragmentManager, containerId, fragment, fragmentTag, true, backstackTag)
     }
 

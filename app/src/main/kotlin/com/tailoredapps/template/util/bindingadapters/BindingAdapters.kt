@@ -14,7 +14,7 @@
 
 package com.tailoredapps.template.util.bindingadapters
 
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import android.view.View
 import android.view.ViewGroup
 
