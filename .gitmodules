@@ -1,3 +1,0 @@
-[submodule "recorder_android/android_libraries_version"]
-	path = android_libraries_version
-	url = git@github.com:1and1get2/android_libraries_version.git
