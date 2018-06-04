@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.akaita.android.easylauncher'
 
 android {
     compileSdkVersion 27
@@ -73,7 +74,6 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-
     /**
      * UI
      */
@@ -89,7 +89,6 @@ dependencies {
 
     kapt "com.android.databinding:compiler:$gradlePluginVersion"
 
-
     /**
      * Networking
      */
@@ -103,14 +102,12 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
 
-
     /**
      * Dependency Injection
      */
 
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     implementation "com.google.dagger:dagger:$daggerVersion"
-
 
     /**
      * Rx
@@ -119,7 +116,6 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.1.13'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
-
 
     /**
      * Utils
@@ -135,7 +131,6 @@ dependencies {
     implementation "nz.bradcampbell:paperparcel:$paperParcelVersion"
     implementation "nz.bradcampbell:paperparcel-kotlin:$paperParcelVersion"
     kapt "nz.bradcampbell:paperparcel-compiler:$paperParcelVersion"
-
 
     /**
      * Testing
@@ -168,4 +163,20 @@ dependencies {
     androidTestImplementation 'com.jakewharton.espresso:okhttp3-idling-resource:1.0.0'
     androidTestImplementation "com.google.code.findbugs:jsr305:3.0.2"
 
+}
+
+
+easylauncher {
+    iconNames "@mipmap/ic_launcher_foreground"
+    foregroundIconNames "@mipmap/ic_launcher_foreground"
+
+    defaultFlavorNaming = true
+
+    //For customization see: https://github.com/akaita/easylauncher-gradle-plugin#usage.
+    buildTypes {
+        debug {
+            filters = customColorRibbonFilter("debug", "#ffffff", "#47BAF2")
+        }
+        release {}
+    }
 }
