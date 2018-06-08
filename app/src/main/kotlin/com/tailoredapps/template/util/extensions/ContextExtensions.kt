@@ -17,8 +17,8 @@ package com.tailoredapps.template.util.extensions
 import android.content.Context
 import android.content.ContextWrapper
 import android.os.Build
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.PermissionChecker
+import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker
 import java.util.*
 
 inline fun <reified T> Context.castWithUnwrap(): T? {

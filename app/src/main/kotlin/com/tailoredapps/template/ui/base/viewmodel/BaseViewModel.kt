@@ -1,11 +1,3 @@
-package com.tailoredapps.template.ui.base.viewmodel
-
-import android.databinding.BaseObservable
-import android.os.Bundle
-import android.support.annotation.CallSuper
-
-import com.tailoredapps.template.ui.base.view.MvvmView
-
 /* Copyright 2016 Patrick Löwenstein
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,6 +11,15 @@ import com.tailoredapps.template.ui.base.view.MvvmView
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License. */
+
+package com.tailoredapps.template.ui.base.viewmodel
+
+import android.os.Bundle
+import androidx.annotation.CallSuper
+import androidx.databinding.BaseObservable
+import com.tailoredapps.template.ui.base.view.MvvmView
+
+
 /**
  * Base class that implements the ViewModel interface and provides a base implementation for
  * attachView() and detachView(). It also handles keeping a reference to the mvvmView that

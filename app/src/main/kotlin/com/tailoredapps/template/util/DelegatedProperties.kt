@@ -14,8 +14,8 @@
 
 package com.tailoredapps.template.util
 
-import android.databinding.BaseObservable
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.BaseObservable
+import androidx.recyclerview.widget.RecyclerView
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 

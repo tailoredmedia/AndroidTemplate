@@ -1,14 +1,3 @@
-package com.tailoredapps.template.ui.base.navigator
-
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
-import android.support.annotation.IdRes
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
-
 /* Copyright 2016 Patrick Löwenstein
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,6 +18,19 @@ import android.support.v4.app.FragmentManager
  * FILE CHANGED 2017 Tailored Media GmbH
  *
  */
+
+package com.tailoredapps.template.ui.base.navigator
+
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
+import androidx.annotation.IdRes
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+
+
 open class ActivityNavigator(protected val activity: FragmentActivity) : Navigator {
 
     open protected val fragmentManager get() = activity.supportFragmentManager

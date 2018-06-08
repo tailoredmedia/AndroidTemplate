@@ -14,10 +14,10 @@
 
 package com.tailoredapps.template.ui.base.viewmodel
 
-import android.databinding.BaseObservable
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.annotation.CallSuper
+import androidx.annotation.CallSuper
+import androidx.databinding.BaseObservable
 
 import com.tailoredapps.template.ui.base.view.MvvmView
 import com.tailoredapps.template.util.extensions.getParcelable

@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'com.akaita.android.easylauncher'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    compileSdkVersion 28
     signingConfigs {
         release {
             keyAlias 'mykeyalias'
@@ -17,7 +17,7 @@ android {
     defaultConfig {
         applicationId "com.tailoredapps.template"
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0.0"
         vectorDrawables.useSupportLibrary = true
@@ -78,22 +78,24 @@ dependencies {
      * UI
      */
 
-    implementation "com.android.support:support-fragment:$supportLibVersion"
-    implementation "com.android.support:support-core-ui:$supportLibVersion"
-    implementation "com.android.support:appcompat-v7:$supportLibVersion"
-    implementation "com.android.support:cardview-v7:$supportLibVersion"
-    implementation "com.android.support:recyclerview-v7:$supportLibVersion"
-    implementation "com.android.support:design:$supportLibVersion"
+    implementation 'androidx.appcompat:appcompat:1.0.0-alpha3'
+    implementation 'androidx.fragment:fragment:1.0.0-alpha3'
+    implementation 'com.google.android.material:material:1.0.0-alpha3'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.1'
 
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
 
-    kapt "com.android.databinding:compiler:$gradlePluginVersion"
+    /**
+     * Navigation Architecture Components
+     */
+
+    implementation "android.arch.navigation:navigation-fragment-ktx:$navVersion"
+    implementation "android.arch.navigation:navigation-ui-ktx:$navVersion"
 
     /**
      * Networking
      */
 
-    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.google.code.gson:gson:2.8.5'
 
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
@@ -113,7 +115,7 @@ dependencies {
      * Rx
      */
 
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.13'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.14'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
 
@@ -128,9 +130,11 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
-    implementation "nz.bradcampbell:paperparcel:$paperParcelVersion"
-    implementation "nz.bradcampbell:paperparcel-kotlin:$paperParcelVersion"
-    kapt "nz.bradcampbell:paperparcel-compiler:$paperParcelVersion"
+    // Does not work with androidx yet
+    // https://github.com/grandstaish/paperparcel/issues/216
+    //implementation "nz.bradcampbell:paperparcel:$paperParcelVersion"
+    //implementation "nz.bradcampbell:paperparcel-kotlin:$paperParcelVersion"
+    //kapt "nz.bradcampbell:paperparcel-compiler:$paperParcelVersion"
 
     /**
      * Testing
@@ -146,7 +150,6 @@ dependencies {
     testImplementation "com.nhaarman:mockito-kotlin-kt1.1:1.5.0"
     testImplementation "com.google.code.findbugs:jsr305:3.0.2"
 
-    androidTestImplementation "com.android.support:support-annotations:$supportLibVersion"
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

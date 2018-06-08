@@ -1,11 +1,3 @@
-package com.tailoredapps.template.injection.modules
-
-import com.tailoredapps.template.data.local.PrefRepo
-import com.tailoredapps.template.data.local.SharedPrefRepo
-
-import dagger.Binds
-import dagger.Module
-
 /* Copyright 2016 Patrick Löwenstein
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,6 +11,16 @@ import dagger.Module
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License. */
+
+package com.tailoredapps.template.injection.modules
+
+import com.tailoredapps.template.data.local.PrefRepo
+import com.tailoredapps.template.data.local.SharedPrefRepo
+
+import dagger.Binds
+import dagger.Module
+
+
 @Module
 abstract class DataModule {
 

@@ -1,7 +1,7 @@
 package com.tailoredapps.template.injection.components
 
 import android.content.Context
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.FragmentManager
 import com.tailoredapps.template.injection.modules.ActivityModule
 import com.tailoredapps.template.injection.modules.ViewModelModule
 import com.tailoredapps.template.injection.qualifier.ActivityContext

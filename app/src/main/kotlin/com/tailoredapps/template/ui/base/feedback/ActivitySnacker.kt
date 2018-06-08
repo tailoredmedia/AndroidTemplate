@@ -14,11 +14,11 @@
 
 package com.tailoredapps.template.ui.base.feedback
 
-import android.support.annotation.StringRes
-import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.Snackbar
-import android.support.v4.app.FragmentActivity
 import android.view.ViewGroup
+import androidx.annotation.StringRes
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.fragment.app.FragmentActivity
+import com.google.android.material.snackbar.Snackbar
 
 open class ActivitySnacker(val activity: FragmentActivity) : Snacker {
 
