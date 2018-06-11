@@ -91,6 +91,7 @@ dependencies {
     implementation "android.arch.navigation:navigation-fragment-ktx:$navVersion"
     implementation "android.arch.navigation:navigation-ui-ktx:$navVersion"
 
+
     /**
      * Networking
      */
@@ -103,6 +104,7 @@ dependencies {
 
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+
 
     /**
      * Dependency Injection

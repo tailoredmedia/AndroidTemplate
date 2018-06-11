@@ -15,6 +15,8 @@
 package com.tailoredapps.template.ui.main
 
 import android.os.Bundle
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.tailoredapps.template.R
 import com.tailoredapps.template.databinding.ActivityMainBinding
 import com.tailoredapps.template.injection.scopes.PerActivity
@@ -35,14 +37,18 @@ interface MainMvvm {
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainMvvm.ViewModel>(), MainMvvm.View {
 
+    private val navController by lazy { findNavController(R.id.nav_host_fragment) }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setAndBindContentView(savedInstanceState, R.layout.activity_main)
 
         setSupportActionBar(binding.toolbar)
+        NavigationUI.setupActionBarWithNavController(this, navController)
     }
 
+    override fun onSupportNavigateUp() = navController.navigateUp()
 }
 
 
