@@ -34,6 +34,7 @@ interface Navigator {
     }
 
     fun finishActivity()
+    fun finishActivityAfterTransition()
     fun finishActivityWithResult(resultCode: Int, resultIntentFun: (Intent.() -> Unit)? = null)
     fun finishAffinity()
 

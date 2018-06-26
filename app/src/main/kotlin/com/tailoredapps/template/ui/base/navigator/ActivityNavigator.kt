@@ -38,6 +38,10 @@ open class ActivityNavigator(protected val activity: FragmentActivity) : Navigat
         activity.finish()
     }
 
+    override fun finishActivityAfterTransition() {
+        activity.supportFinishAfterTransition()
+    }
+
     override fun finishActivityWithResult(resultCode: Int, resultIntentFun: (Intent.() -> Unit)?) {
         val intent = resultIntentFun?.let { Intent().apply(it) }
         activity.setResult(resultCode, intent)
