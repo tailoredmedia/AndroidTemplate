@@ -3,11 +3,11 @@ package com.tailoredapps.template.ui.base.navigator
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.support.annotation.IdRes
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
+import android.support.v4.app.*
+import android.support.v4.view.ViewCompat
+import android.view.View
 
 /* Copyright 2016 Patrick Löwenstein
  *
@@ -31,7 +31,8 @@ import android.support.v4.app.FragmentManager
  */
 open class ActivityNavigator(protected val activity: FragmentActivity) : Navigator {
 
-    open protected val fragmentManager get() = activity.supportFragmentManager
+    protected open val fragmentManager
+        get() = activity.supportFragmentManager
 
     override fun finishActivity() {
         activity.finish()
@@ -63,18 +64,30 @@ open class ActivityNavigator(protected val activity: FragmentActivity) : Navigat
         startActivityInternal(activityClass, requestCode, adaptIntentFun)
     }
 
+    override fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: View?, adaptIntentFun: (Intent.() -> Unit)?) {
+        val intent = Intent(activity, activityClass)
+
+        val mapped = transitionViews
+                .filter { it != null }
+                .map { android.support.v4.util.Pair(it, ViewCompat.getTransitionName(it)) }
+                .toTypedArray()
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, *mapped).toBundle()
+
+        startActivityInternal(intent, null, adaptIntentFun, options)
+    }
+
     private fun startActivityInternal(activityClass: Class<out Activity>, requestCode: Int?, adaptIntentFun: (Intent.() -> Unit)?) {
         val intent = Intent(activity, activityClass)
         startActivityInternal(intent, requestCode, adaptIntentFun)
     }
 
-    open protected fun startActivityInternal(intent: Intent, requestCode: Int? = null, adaptIntentFun: (Intent.() -> Unit)? = null) {
+    protected open fun startActivityInternal(intent: Intent, requestCode: Int? = null, adaptIntentFun: (Intent.() -> Unit)? = null, options: Bundle? = null) {
         adaptIntentFun?.invoke(intent)
 
         if (requestCode != null) {
-            activity.startActivityForResult(intent, requestCode)
+            ActivityCompat.startActivityForResult(activity, intent, requestCode, options)
         } else {
-            activity.startActivity(intent)
+            activity.startActivity(intent, options)
         }
     }
 
