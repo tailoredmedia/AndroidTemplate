@@ -68,11 +68,10 @@ open class ActivityNavigator(protected val activity: FragmentActivity) : Navigat
         startActivityInternal(activityClass, requestCode, adaptIntentFun)
     }
 
-    override fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: View?, adaptIntentFun: (Intent.() -> Unit)?) {
+    override fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: View, adaptIntentFun: (Intent.() -> Unit)?) {
         val intent = Intent(activity, activityClass)
 
         val mapped = transitionViews
-                .filter { it != null }
                 .map { android.support.v4.util.Pair(it, ViewCompat.getTransitionName(it)) }
                 .toTypedArray()
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, *mapped).toBundle()
