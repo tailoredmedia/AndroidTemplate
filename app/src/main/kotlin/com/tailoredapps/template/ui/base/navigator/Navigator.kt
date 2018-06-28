@@ -6,6 +6,7 @@ import android.net.Uri
 import android.support.annotation.IdRes
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
+import android.view.View
 
 /* Copyright 2016 Patrick Löwenstein
  *
@@ -33,12 +34,16 @@ interface Navigator {
     }
 
     fun finishActivity()
+    fun finishActivityAfterTransition()
     fun finishActivityWithResult(resultCode: Int, resultIntentFun: (Intent.() -> Unit)? = null)
     fun finishAffinity()
 
     fun startActivity(intent: Intent)
     fun startActivity(action: String, uri: Uri? = null)
     fun startActivity(activityClass: Class<out Activity>, adaptIntentFun: (Intent.() -> Unit)? = null)
+
+    fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: Pair<View, String>, adaptIntentFun: (Intent.() -> Unit)? = null)
+    fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: View, adaptIntentFun: (Intent.() -> Unit)? = null)
 
     fun startActivityForResult(activityClass: Class<out Activity>, requestCode: Int, adaptIntentFun: (Intent.() -> Unit)? = null)
 
