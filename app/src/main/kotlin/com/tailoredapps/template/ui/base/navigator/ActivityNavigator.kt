@@ -24,7 +24,12 @@ package com.tailoredapps.template.ui.base.navigator
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
+import android.view.View
 import androidx.annotation.IdRes
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -33,10 +38,15 @@ import androidx.fragment.app.FragmentManager
 
 open class ActivityNavigator(protected val activity: FragmentActivity) : Navigator {
 
-    open protected val fragmentManager get() = activity.supportFragmentManager
+    protected open val fragmentManager
+        get() = activity.supportFragmentManager
 
     override fun finishActivity() {
         activity.finish()
+    }
+
+    override fun finishActivityAfterTransition() {
+        activity.supportFinishAfterTransition()
     }
 
     override fun finishActivityWithResult(resultCode: Int, resultIntentFun: (Intent.() -> Unit)?) {
@@ -65,18 +75,42 @@ open class ActivityNavigator(protected val activity: FragmentActivity) : Navigat
         startActivityInternal(activityClass, requestCode, adaptIntentFun)
     }
 
+    override fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: Pair<View, String>, adaptIntentFun: (Intent.() -> Unit)?) {
+        startActivityWithTransitionInternal(activityClass, transitionViews, adaptIntentFun)
+    }
+
+    override fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: View, adaptIntentFun: (Intent.() -> Unit)?) {
+        val mapped = transitionViews.map {
+                    val transitionName = ViewCompat.getTransitionName(it) ?: throw IllegalArgumentException("View with ID \"${it.resources.getResourceEntryName(it.id)}\" must have a transitionName")
+                    Pair(it, transitionName)
+                }.toTypedArray()
+
+        startActivityWithTransitionInternal(activityClass, mapped, adaptIntentFun)
+    }
+
+    private fun startActivityWithTransitionInternal(activityClass: Class<out Activity>, transitionViews: Array<out Pair<View, String>>, adaptIntentFun: (Intent.() -> Unit)?) {
+        val intent = Intent(activity, activityClass)
+
+        val mapped = transitionViews
+                .map { androidx.core.util.Pair(it.first, it.second) }
+                .toTypedArray()
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, *mapped).toBundle()
+
+        startActivityInternal(intent, null, adaptIntentFun, options)
+    }
+
     private fun startActivityInternal(activityClass: Class<out Activity>, requestCode: Int?, adaptIntentFun: (Intent.() -> Unit)?) {
         val intent = Intent(activity, activityClass)
         startActivityInternal(intent, requestCode, adaptIntentFun)
     }
 
-    open protected fun startActivityInternal(intent: Intent, requestCode: Int? = null, adaptIntentFun: (Intent.() -> Unit)? = null) {
+    protected open fun startActivityInternal(intent: Intent, requestCode: Int? = null, adaptIntentFun: (Intent.() -> Unit)? = null, options: Bundle? = null) {
         adaptIntentFun?.invoke(intent)
 
         if (requestCode != null) {
-            activity.startActivityForResult(intent, requestCode)
+            ActivityCompat.startActivityForResult(activity, intent, requestCode, options)
         } else {
-            activity.startActivity(intent)
+            activity.startActivity(intent, options)
         }
     }
 

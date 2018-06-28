@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: "kotlin-android-extensions"
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'com.akaita.android.easylauncher'
@@ -66,6 +67,11 @@ android {
 }
 
 
+androidExtensions {
+    experimental = true
+}
+
+
 dependencies {
 
     /**
@@ -81,7 +87,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.0-alpha3'
     implementation 'androidx.fragment:fragment:1.0.0-alpha3'
     implementation 'com.google.android.material:material:1.0.0-alpha3'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.1'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
 
 
     /**
@@ -117,7 +123,7 @@ dependencies {
      * Rx
      */
 
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.14'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.16'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
 
@@ -132,11 +138,6 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
-    // Does not work with androidx yet
-    // https://github.com/grandstaish/paperparcel/issues/216
-    //implementation "nz.bradcampbell:paperparcel:$paperParcelVersion"
-    //implementation "nz.bradcampbell:paperparcel-kotlin:$paperParcelVersion"
-    //kapt "nz.bradcampbell:paperparcel-compiler:$paperParcelVersion"
 
     /**
      * Testing
