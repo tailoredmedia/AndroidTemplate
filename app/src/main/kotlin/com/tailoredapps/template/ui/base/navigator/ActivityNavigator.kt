@@ -68,11 +68,24 @@ open class ActivityNavigator(protected val activity: FragmentActivity) : Navigat
         startActivityInternal(activityClass, requestCode, adaptIntentFun)
     }
 
+    override fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: Pair<View, String>, adaptIntentFun: (Intent.() -> Unit)?) {
+        startActivityWithTransitionInternal(activityClass, transitionViews, adaptIntentFun)
+    }
+
     override fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: View, adaptIntentFun: (Intent.() -> Unit)?) {
+        val mapped = transitionViews.map {
+                    val transitionName = ViewCompat.getTransitionName(it) ?: throw IllegalArgumentException("View with ID \"${it.resources.getResourceEntryName(it.id)}\" must have a transitionName")
+                    Pair(it, transitionName)
+                }.toTypedArray()
+
+        startActivityWithTransitionInternal(activityClass, mapped, adaptIntentFun)
+    }
+
+    private fun startActivityWithTransitionInternal(activityClass: Class<out Activity>, transitionViews: Array<out Pair<View, String>>, adaptIntentFun: (Intent.() -> Unit)?) {
         val intent = Intent(activity, activityClass)
 
         val mapped = transitionViews
-                .map { android.support.v4.util.Pair(it, ViewCompat.getTransitionName(it)) }
+                .map { android.support.v4.util.Pair(it.first, it.second) }
                 .toTypedArray()
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, *mapped).toBundle()
 

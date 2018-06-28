@@ -42,7 +42,8 @@ interface Navigator {
     fun startActivity(action: String, uri: Uri? = null)
     fun startActivity(activityClass: Class<out Activity>, adaptIntentFun: (Intent.() -> Unit)? = null)
 
-    fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: View?, adaptIntentFun: (Intent.() -> Unit)? = null)
+    fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: Pair<View, String>, adaptIntentFun: (Intent.() -> Unit)? = null)
+    fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: View, adaptIntentFun: (Intent.() -> Unit)? = null)
 
     fun startActivityForResult(activityClass: Class<out Activity>, requestCode: Int, adaptIntentFun: (Intent.() -> Unit)? = null)
 
