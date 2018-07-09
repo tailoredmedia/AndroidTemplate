@@ -90,9 +90,9 @@ fi
 # find and replace package name recursively
 
 if [ "Darwin" == $systemName ]; then
-    find $baseDir -not -path './.idea*' -a -not -path './.git*' -a -type f \( -iname \*.kt -o -iname \*.java -o -iname \*.xml -o -iname \*.gradle \) -exec sed -i '' "s/com\.tailoredapps\.template/$packageName/g" {} +
+    find $baseDir -not -path './.idea*' -a -not -path './.git*' -a -type f \( -iname \*.kt -o -iname \*.java -o -iname \*.xml -o -iname \*.gradle -o -iname \*.pro \) -exec sed -i '' "s/com\.tailoredapps\.template/$packageName/g" {} +
 else
-    find $baseDir -not -path './.idea*' -a -not -path './.git*' -a -type f \( -iname \*.kt -o -iname \*.java -o -iname \*.xml -o -iname \*.gradle \) -exec sed -i "s/com\.tailoredapps\.template/$packageName/g" {} +
+    find $baseDir -not -path './.idea*' -a -not -path './.git*' -a -type f \( -iname \*.kt -o -iname \*.java -o -iname \*.xml -o -iname \*.gradle -o -iname \*.pro \) -exec sed -i "s/com\.tailoredapps\.template/$packageName/g" {} +
 fi
 
 # find and replace app name recursively
