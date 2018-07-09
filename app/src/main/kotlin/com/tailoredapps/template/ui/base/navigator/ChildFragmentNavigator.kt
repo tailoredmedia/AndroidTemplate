@@ -28,9 +28,7 @@ class ChildFragmentNavigator(private val fragment: Fragment) : ActivityNavigator
     override val fragmentManager: FragmentManager? get() = fragment.fragmentManager
     private val childFragmentManager get() = fragment.childFragmentManager
 
-    override fun startActivityInternal(intent: Intent, requestCode: Int?, adaptIntentFun: (Intent.() -> Unit)?, options: Bundle?) {
-        adaptIntentFun?.invoke(intent)
-
+    override fun startActivityInternal(intent: Intent, requestCode: Int?, options: Bundle?) {
         if (requestCode != null) {
             fragment.startActivityForResult(intent, requestCode, options)
         } else {

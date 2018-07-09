@@ -61,46 +61,54 @@ open class ActivityNavigator(protected val activity: FragmentActivity) : Navigat
         startActivityInternal(Intent(action, uri))
     }
 
-    override fun startActivity(activityClass: Class<out Activity>, adaptIntentFun: (Intent.() -> Unit)?) {
-        startActivityInternal(activityClass, null, adaptIntentFun)
+    override fun startActivity(activityClass: Class<out Activity>) {
+        startActivityInternal(activityClass, null)
     }
 
-    override fun startActivityForResult(activityClass: Class<out Activity>, requestCode: Int, adaptIntentFun: (Intent.() -> Unit)?) {
-        startActivityInternal(activityClass, requestCode, adaptIntentFun)
+    override fun startActivityForResult(intent: Intent, requestCode: Int) {
+        startActivityInternal(intent, requestCode)
     }
 
-    override fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: Pair<View, String>, adaptIntentFun: (Intent.() -> Unit)?) {
-        startActivityWithTransitionInternal(activityClass, transitionViews, adaptIntentFun)
+    override fun startActivityForResult(activityClass: Class<out Activity>, requestCode: Int) {
+        startActivityInternal(activityClass, requestCode)
     }
 
-    override fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: View, adaptIntentFun: (Intent.() -> Unit)?) {
+    override fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: Pair<View, String>) {
+        startActivityWithTransitionInternal(Intent(activity, activityClass), transitionViews)
+    }
+
+    override fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: View) {
+        startActivityWithTransition(Intent(activity, activityClass), *transitionViews)
+    }
+
+    override fun startActivityWithTransition(intent: Intent, vararg transitionViews: Pair<View, String>) {
+        startActivityWithTransitionInternal(intent, transitionViews)
+    }
+
+    override fun startActivityWithTransition(intent: Intent, vararg transitionViews: View) {
         val mapped = transitionViews.map {
-                    val transitionName = ViewCompat.getTransitionName(it) ?: throw IllegalArgumentException("View with ID \"${it.resources.getResourceEntryName(it.id)}\" must have a transitionName")
-                    Pair(it, transitionName)
-                }.toTypedArray()
+            val transitionName = ViewCompat.getTransitionName(it) ?: throw IllegalArgumentException("View with ID \"${it.resources.getResourceEntryName(it.id)}\" must have a transitionName")
+            Pair(it, transitionName)
+        }.toTypedArray()
 
-        startActivityWithTransitionInternal(activityClass, mapped, adaptIntentFun)
+        startActivityWithTransitionInternal(intent, mapped)
     }
 
-    private fun startActivityWithTransitionInternal(activityClass: Class<out Activity>, transitionViews: Array<out Pair<View, String>>, adaptIntentFun: (Intent.() -> Unit)?) {
-        val intent = Intent(activity, activityClass)
-
+    private fun startActivityWithTransitionInternal(intent: Intent, transitionViews: Array<out Pair<View, String>>) {
         val mapped = transitionViews
                 .map { android.support.v4.util.Pair(it.first, it.second) }
                 .toTypedArray()
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, *mapped).toBundle()
 
-        startActivityInternal(intent, null, adaptIntentFun, options)
+        startActivityInternal(intent, null, options)
     }
 
-    private fun startActivityInternal(activityClass: Class<out Activity>, requestCode: Int?, adaptIntentFun: (Intent.() -> Unit)?) {
+    private fun startActivityInternal(activityClass: Class<out Activity>, requestCode: Int?) {
         val intent = Intent(activity, activityClass)
-        startActivityInternal(intent, requestCode, adaptIntentFun)
+        startActivityInternal(intent, requestCode)
     }
 
-    protected open fun startActivityInternal(intent: Intent, requestCode: Int? = null, adaptIntentFun: (Intent.() -> Unit)? = null, options: Bundle? = null) {
-        adaptIntentFun?.invoke(intent)
-
+    protected open fun startActivityInternal(intent: Intent, requestCode: Int? = null, options: Bundle? = null) {
         if (requestCode != null) {
             ActivityCompat.startActivityForResult(activity, intent, requestCode, options)
         } else {
