@@ -1,12 +1,4 @@
-package com.tailoredapps.template.injection.modules
-
-import com.tailoredapps.template.injection.qualifier.ViewHolderDisposable
-import com.tailoredapps.template.injection.scopes.PerViewHolder
-import dagger.Module
-import dagger.Provides
-import io.reactivex.disposables.CompositeDisposable
-
-/* Copyright 2016 Patrick Löwenstein
+/* Copyright 2017 Tailored Media GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +11,12 @@ import io.reactivex.disposables.CompositeDisposable
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License. */
-@Module
-class ViewHolderModule {
 
-    @Provides
-    @PerViewHolder
-    @ViewHolderDisposable
-    internal fun provideCompositeDisposable(): CompositeDisposable = CompositeDisposable()
+package com.tailoredapps.template.injection.qualifier
 
-}
+import javax.inject.Qualifier
+
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class ViewHolderDisposable
