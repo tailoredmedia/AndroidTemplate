@@ -2,8 +2,10 @@ package com.tailoredapps.template.injection.components
 
 import com.tailoredapps.template.injection.modules.ViewHolderModule
 import com.tailoredapps.template.injection.modules.ViewModelModule
+import com.tailoredapps.template.injection.qualifier.ViewHolderDisposable
 import com.tailoredapps.template.injection.scopes.PerViewHolder
 import dagger.Component
+import io.reactivex.disposables.CompositeDisposable
 
 /* Copyright 2017 Tailored Media GmbH
  *
@@ -21,5 +23,12 @@ import dagger.Component
 @PerViewHolder
 @Component(dependencies = [(FragmentComponent::class)], modules = [(ViewHolderModule::class), (ViewModelModule::class)])
 interface FragmentViewHolderComponent {
+    // create inject methods for your Fragment ViewHolder here
+
+}
+
+interface FragmentViewHolderComponentProvides {
+
+    @ViewHolderDisposable fun viewHolderDisposable(): CompositeDisposable
 
 }

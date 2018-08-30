@@ -2,9 +2,10 @@ package com.tailoredapps.template.injection.components
 
 import com.tailoredapps.template.injection.modules.ViewHolderModule
 import com.tailoredapps.template.injection.modules.ViewModelModule
+import com.tailoredapps.template.injection.qualifier.ViewHolderDisposable
 import com.tailoredapps.template.injection.scopes.PerViewHolder
-
 import dagger.Component
+import io.reactivex.disposables.CompositeDisposable
 
 /* Copyright 2017 Tailored Media GmbH
  *
@@ -21,6 +22,13 @@ import dagger.Component
  * limitations under the License. */
 @PerViewHolder
 @Component(dependencies = [(ActivityComponent::class)], modules = [(ViewHolderModule::class), (ViewModelModule::class)])
-interface ActivityViewHolderComponent {
+interface ActivityViewHolderComponent : ActivityViewHolderComponentProvides {
+    // create inject methods for your Activity ViewHolder here
+
+}
+
+interface ActivityViewHolderComponentProvides {
+
+    @ViewHolderDisposable fun viewHolderDisposable(): CompositeDisposable
 
 }
