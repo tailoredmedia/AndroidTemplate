@@ -46,6 +46,7 @@ open class ActivityNavigator(protected val activity: FragmentActivity) : Navigat
     }
 
     override fun finishActivityAfterTransition() {
+        activity.setResult(Activity.RESULT_OK)
         activity.supportFinishAfterTransition()
     }
 

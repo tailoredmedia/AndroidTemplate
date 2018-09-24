@@ -12,8 +12,8 @@ buildscript {
     ext.daggerVersion = '2.16'
 
     repositories {
-        jcenter()
         google()
+        jcenter()
     }
 
     dependencies {
@@ -27,8 +27,8 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
         google()
+        jcenter()
     }
 }
 
