@@ -25,7 +25,7 @@ import com.tailoredapps.template.ui.base.viewmodel.NoOpViewModel
 // Bundle
 
 fun <T : Parcelable> Bundle.getParcelable(key: String, defaultObject: T): T = if (containsKey(key)) {
-    getParcelable(key)
+    getParcelable(key)!!
 } else {
     defaultObject
 }

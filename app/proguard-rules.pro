@@ -70,12 +70,12 @@
 #-dontwarn com.tailoredapps.template.**
 
 # Keep component classes and inject methods
--keep class com.tailoredapps.template.injection.components.* {
+-keep class com.tailoredapps.template.injection.components.** {
     public void inject(...);
 }
 
 # Keep model classes
--keep class com.tailoredapps.template.data.model.* { *; }
+-keep class com.tailoredapps.template.data.model.** { *; }
 
 
 -keep class android.support.design.widget.AppBarLayout$Behavior { *; }
