@@ -21,10 +21,8 @@ import com.tailoredapps.template.injection.components.AppComponent
 import com.tailoredapps.template.injection.components.DaggerAppComponent
 import com.tailoredapps.template.injection.modules.AppModule
 import io.reactivex.plugins.RxJavaPlugins
-import paperparcel.ProcessorConfig
 import timber.log.Timber
 
-@ProcessorConfig(adapters = [])
 class MyApp : Application() {
 
     override fun onCreate() {

@@ -1,11 +1,3 @@
-package com.tailoredapps.template.ui.base.navigator
-
-import android.content.Intent
-import android.os.Bundle
-import android.support.annotation.IdRes
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-
 /* Copyright 2017 Patrick Löwenstein
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,6 +15,16 @@ import android.support.v4.app.FragmentManager
  * --------------
  *
  * FILE MODIFIED 2017 Tailored Media GmbH */
+
+package com.tailoredapps.template.ui.base.navigator
+
+import android.content.Intent
+import android.os.Bundle
+import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+
+
 class ChildFragmentNavigator(private val fragment: Fragment) : ActivityNavigator(fragment.activity!!), FragmentNavigator {
 
     override val fragmentManager: FragmentManager? get() = fragment.fragmentManager

@@ -1,9 +1,10 @@
 package com.tailoredapps.template.util.bindingadapters;
 
-import android.databinding.BindingAdapter;
-import android.databinding.InverseBindingAdapter;
-import android.databinding.InverseBindingListener;
-import android.support.v4.view.ViewPager;
+
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.InverseBindingAdapter;
+import androidx.databinding.InverseBindingListener;
+import androidx.viewpager.widget.ViewPager;
 
 /* Copyright 2017 Tailored Media GmbH
  *

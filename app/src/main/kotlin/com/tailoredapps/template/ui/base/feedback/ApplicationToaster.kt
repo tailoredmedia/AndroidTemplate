@@ -15,8 +15,8 @@
 package com.tailoredapps.template.ui.base.feedback
 
 import android.content.Context
-import android.support.annotation.StringRes
 import android.widget.Toast
+import androidx.annotation.StringRes
 
 open class ApplicationToaster(val context: Context) : Toaster {
 

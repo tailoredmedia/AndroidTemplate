@@ -1,7 +1,7 @@
 package com.tailoredapps.template.ui.base.viewmodel
 
-import android.databinding.BaseObservable
 import android.os.Bundle
+import androidx.databinding.BaseObservable
 
 import com.tailoredapps.template.ui.base.view.MvvmView
 

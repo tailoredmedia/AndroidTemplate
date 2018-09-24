@@ -1,27 +1,3 @@
-package com.tailoredapps.template.ui.base
-
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.os.Bundle
-import android.support.annotation.CallSuper
-import android.support.annotation.LayoutRes
-import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.squareup.leakcanary.RefWatcher
-import com.tailoredapps.template.BR
-import com.tailoredapps.template.injection.components.DaggerFragmentComponent
-import com.tailoredapps.template.injection.components.FragmentComponent
-import com.tailoredapps.template.injection.modules.FragmentModule
-import com.tailoredapps.template.injection.qualifier.FragmentDisposable
-import com.tailoredapps.template.injection.scopes.PerFragment
-import com.tailoredapps.template.ui.base.view.MvvmView
-import com.tailoredapps.template.ui.base.viewmodel.MvvmViewModel
-import com.tailoredapps.template.util.extensions.attachViewOrThrowRuntimeException
-import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
-
 /* Copyright 2016 Patrick Löwenstein
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,6 +15,30 @@ import javax.inject.Inject
  * ------
  *
  * FILE MODIFIED 2017 Tailored Media GmbH */
+
+package com.tailoredapps.template.ui.base
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.CallSuper
+import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
+import com.squareup.leakcanary.RefWatcher
+import com.tailoredapps.template.BR
+import com.tailoredapps.template.injection.components.DaggerFragmentComponent
+import com.tailoredapps.template.injection.components.FragmentComponent
+import com.tailoredapps.template.injection.modules.FragmentModule
+import com.tailoredapps.template.injection.qualifier.FragmentDisposable
+import com.tailoredapps.template.injection.scopes.PerFragment
+import com.tailoredapps.template.ui.base.view.MvvmView
+import com.tailoredapps.template.ui.base.viewmodel.MvvmViewModel
+import com.tailoredapps.template.util.extensions.attachViewOrThrowRuntimeException
+import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
 /* Base class for Fragments when using a view model with data binding.
  * This class provides the binding and the view model to the subclass. The

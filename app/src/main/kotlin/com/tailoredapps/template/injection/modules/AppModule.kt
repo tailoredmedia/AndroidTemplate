@@ -1,17 +1,3 @@
-package com.tailoredapps.template.injection.modules
-
-import android.app.Application
-import android.content.Context
-import android.content.res.Resources
-import com.squareup.leakcanary.LeakCanary
-import com.squareup.leakcanary.RefWatcher
-import com.tailoredapps.template.injection.qualifier.AppContext
-import com.tailoredapps.template.injection.scopes.PerApplication
-import com.tailoredapps.template.ui.base.feedback.ApplicationToaster
-import com.tailoredapps.template.ui.base.feedback.Toaster
-import dagger.Module
-import dagger.Provides
-
 /* Copyright 2016 Patrick Löwenstein
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,6 +15,22 @@ import dagger.Provides
  * ------
  *
  * FILE MODIFIED 2017 Tailored Media GmbH */
+
+package com.tailoredapps.template.injection.modules
+
+import android.app.Application
+import android.content.Context
+import android.content.res.Resources
+import com.squareup.leakcanary.LeakCanary
+import com.squareup.leakcanary.RefWatcher
+import com.tailoredapps.template.injection.qualifier.AppContext
+import com.tailoredapps.template.injection.scopes.PerApplication
+import com.tailoredapps.template.ui.base.feedback.ApplicationToaster
+import com.tailoredapps.template.ui.base.feedback.Toaster
+import dagger.Module
+import dagger.Provides
+
+
 @Module
 class AppModule(private val app: Application) {
 

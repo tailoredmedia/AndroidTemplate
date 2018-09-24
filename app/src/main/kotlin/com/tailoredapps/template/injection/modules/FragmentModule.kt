@@ -1,18 +1,3 @@
-package com.tailoredapps.template.injection.modules
-
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-
-import com.tailoredapps.template.injection.qualifier.ChildFragmentManager
-import com.tailoredapps.template.injection.qualifier.FragmentDisposable
-import com.tailoredapps.template.injection.scopes.PerFragment
-import com.tailoredapps.template.ui.base.navigator.ChildFragmentNavigator
-import com.tailoredapps.template.ui.base.navigator.FragmentNavigator
-
-import dagger.Module
-import dagger.Provides
-import io.reactivex.disposables.CompositeDisposable
-
 /* Copyright 2016 Patrick Löwenstein
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,6 +11,21 @@ import io.reactivex.disposables.CompositeDisposable
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License. */
+
+package com.tailoredapps.template.injection.modules
+
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import com.tailoredapps.template.injection.qualifier.ChildFragmentManager
+import com.tailoredapps.template.injection.qualifier.FragmentDisposable
+import com.tailoredapps.template.injection.scopes.PerFragment
+import com.tailoredapps.template.ui.base.navigator.ChildFragmentNavigator
+import com.tailoredapps.template.ui.base.navigator.FragmentNavigator
+
+import dagger.Module
+import dagger.Provides
+import io.reactivex.disposables.CompositeDisposable
+
 @Module
 class FragmentModule(private val fragment: Fragment) {
 

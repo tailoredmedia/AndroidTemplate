@@ -1,14 +1,3 @@
-package com.tailoredapps.template.ui.base.navigator
-
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
-import android.os.Bundle
-import android.support.annotation.IdRes
-import android.support.v4.app.*
-import android.support.v4.view.ViewCompat
-import android.view.View
-
 /* Copyright 2016 Patrick Löwenstein
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,6 +18,24 @@ import android.view.View
  * FILE CHANGED 2017 Tailored Media GmbH
  *
  */
+
+package com.tailoredapps.template.ui.base.navigator
+
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.view.View
+import androidx.annotation.IdRes
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+
+
 open class ActivityNavigator(protected val activity: FragmentActivity) : Navigator {
 
     protected open val fragmentManager
@@ -86,7 +93,7 @@ open class ActivityNavigator(protected val activity: FragmentActivity) : Navigat
         val intent = Intent(activity, activityClass)
 
         val mapped = transitionViews
-                .map { android.support.v4.util.Pair(it.first, it.second) }
+                .map { androidx.core.util.Pair(it.first, it.second) }
                 .toTypedArray()
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, *mapped).toBundle()
 

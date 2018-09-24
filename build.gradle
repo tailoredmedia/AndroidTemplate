@@ -2,15 +2,13 @@
 apply plugin: 'com.github.ben-manes.versions'
 
 buildscript {
-    ext.kotlinVersion = '1.2.41'
-    ext.gradlePluginVersion = '3.1.1'
-    ext.mockitoVersion = '2.18.3'
+    ext.kotlinVersion = '1.2.70'
+    ext.gradlePluginVersion = '3.2.0-rc03'
+    ext.mockitoVersion = '2.22.0'
     ext.powerMockVersion = '2.0.0-beta.5'
-    ext.supportLibVersion = '27.1.1'
     ext.retrofitVersion = '2.4.0'
-    ext.okHttpVersion = '3.10.0'
-    ext.daggerVersion = '2.15'
-    ext.paperParcelVersion = '2.0.6'
+    ext.okHttpVersion = '3.11.0'
+    ext.daggerVersion = '2.17'
 
     repositories {
         google()
@@ -20,7 +18,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$gradlePluginVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.17.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.20.0'
         classpath 'com.akaita.android:easylauncher:1.2.0'
     }
 }

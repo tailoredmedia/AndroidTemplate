@@ -1,18 +1,3 @@
-package com.tailoredapps.template.ui.base
-
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
-import android.view.View
-import com.tailoredapps.template.BR
-import com.tailoredapps.template.injection.components.ActivityViewHolderComponent
-import com.tailoredapps.template.injection.components.DaggerActivityViewHolderComponent
-import com.tailoredapps.template.ui.base.view.MvvmView
-import com.tailoredapps.template.ui.base.viewmodel.MvvmViewModel
-import com.tailoredapps.template.util.extensions.attachViewOrThrowRuntimeException
-import com.tailoredapps.template.util.extensions.castWithUnwrap
-import javax.inject.Inject
-
 /* Copyright 2016 Patrick Löwenstein
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,6 +16,21 @@ import javax.inject.Inject
  *
  * FILE MODIFIED 2017 Tailored Media GmbH
  */
+
+package com.tailoredapps.template.ui.base
+
+import android.view.View
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
+import com.tailoredapps.template.BR
+import com.tailoredapps.template.injection.components.ActivityViewHolderComponent
+import com.tailoredapps.template.injection.components.DaggerActivityViewHolderComponent
+import com.tailoredapps.template.ui.base.view.MvvmView
+import com.tailoredapps.template.ui.base.viewmodel.MvvmViewModel
+import com.tailoredapps.template.util.extensions.attachViewOrThrowRuntimeException
+import com.tailoredapps.template.util.extensions.castWithUnwrap
+import javax.inject.Inject
 
 /* Base class for ViewHolders when using a view model in an Activity with data binding.
  * This class provides the binding and the view model to the subclass. The
