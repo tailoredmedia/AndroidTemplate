@@ -9,6 +9,10 @@ buildscript {
     ext.retrofitVersion = '2.4.0'
     ext.okHttpVersion = '3.11.0'
     ext.daggerVersion = '2.17'
+    ext.appCompatVersion = "1.0.0"
+    ext.materialVersion = "1.0.0"
+    ext.rxJavaVersion = "2.2.2"
+    ext.leakCanaryVersion = "1.6.1"
 
     repositories {
         google()

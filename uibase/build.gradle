@@ -1,0 +1,55 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 28
+
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    api project(':core')
+
+    /**
+     * UI
+     */
+
+    implementation "androidx.databinding:databinding-runtime:$gradlePluginVersion"
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+
+    /**
+     * RX
+     */
+
+    api "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+
+    /**
+     * Utils
+     */
+
+    compileOnly "javax.inject:javax.inject:1"
+    debugApi "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
+    releaseApi "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+
+
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+}

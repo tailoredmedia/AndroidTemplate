@@ -15,15 +15,16 @@
 package com.tailoredapps.template
 
 import android.app.Application
-import android.content.res.Resources
 import com.squareup.leakcanary.LeakCanary
-import com.tailoredapps.template.injection.components.AppComponent
-import com.tailoredapps.template.injection.components.DaggerAppComponent
-import com.tailoredapps.template.injection.modules.AppModule
+import com.tailoredapps.injection.components.AppComponent
+import com.tailoredapps.injection.components.DaggerAppComponent
+import com.tailoredapps.injection.modules.AppModule
 import io.reactivex.plugins.RxJavaPlugins
 import timber.log.Timber
 
 class MyApp : Application() {
+
+    lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
@@ -31,23 +32,11 @@ class MyApp : Application() {
 
         Timber.plant(Timber.DebugTree())
 
-        instance = this
         appComponent = DaggerAppComponent.builder()
                 .appModule(AppModule(this))
                 .build()
 
-        RxJavaPlugins.setErrorHandler({ Timber.e(it) })
+        RxJavaPlugins.setErrorHandler { Timber.e(it) }
     }
 
-    companion object {
-
-        lateinit var instance: MyApp
-            private set
-
-        lateinit var appComponent: AppComponent
-            private set
-
-        val res: Resources
-            get() = instance.resources
-    }
 }
