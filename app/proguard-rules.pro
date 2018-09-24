@@ -63,9 +63,21 @@
 #}
 
 
+# App specific
+
 # Change this to your app's final package name
--keep class com.tailoredapps.template.** { *; }
--dontwarn com.tailoredapps.template.**
+#-keep class com.tailoredapps.template.** { *; }
+#-dontwarn com.tailoredapps.template.**
+
+# Keep component classes and inject methods
+-keep class com.tailoredapps.template.injection.components.* {
+    public void inject(...);
+}
+
+# Keep model classes
+-keep class com.tailoredapps.template.data.model.* { *; }
+
+
 -keep class android.support.design.widget.AppBarLayout$Behavior { *; }
 
 # Okio
@@ -84,6 +96,7 @@
 
 
 # LeakCanary
+
 -keep class org.eclipse.mat.** { *; }
 -keep class com.squareup.leakcanary.** { *; }
 
@@ -123,19 +136,6 @@
 
 -keep class org.parceler.Parceler$$Parcels
 
-# Realm
-
--keep class io.realm.annotations.RealmModule
--keep @io.realm.annotations.RealmModule class *
--keep class io.realm.internal.Keep
--keep @io.realm.internal.Keep class * { *; }
--dontwarn javax.**
--dontwarn io.realm.**
-
-# Retrolambda
-
--dontwarn java.lang.invoke.*
-
 # RxJava
 
 -dontwarn sun.misc.**
@@ -156,3 +156,12 @@
 -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
     rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }
+
+# OkHttp
+
+-dontwarn okhttp3.**
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+-dontwarn org.conscrypt.**
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
