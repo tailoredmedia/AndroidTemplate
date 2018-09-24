@@ -13,8 +13,8 @@ buildscript {
     ext.paperParcelVersion = '2.0.6'
 
     repositories {
-        jcenter()
         google()
+        jcenter()
     }
 
     dependencies {
@@ -27,8 +27,8 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
         google()
+        jcenter()
     }
 }
 
