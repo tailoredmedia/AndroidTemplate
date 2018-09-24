@@ -4,7 +4,6 @@ apply plugin: 'com.github.ben-manes.versions'
 buildscript {
     ext.kotlinVersion = '1.2.70'
     ext.gradlePluginVersion = '3.2.0-rc03'
-    ext.navVersion = '1.0.0-alpha06'
     ext.mockitoVersion = '2.22.0'
     ext.powerMockVersion = '2.0.0-beta.5'
     ext.retrofitVersion = '2.4.0'
@@ -19,7 +18,6 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$gradlePluginVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$navVersion"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.20.0'
         classpath 'com.akaita.android:easylauncher:1.2.0'
     }
