@@ -1,18 +1,17 @@
 package com.tailoredapps.injection.components
 
 import android.content.Context
-import android.content.res.Resources
-import com.squareup.leakcanary.RefWatcher
-import com.tailoredapps.core.feedback.Toaster
-import com.tailoredapps.core.injection.AppComponentProvides
-import com.tailoredapps.core.injection.qualifier.AppContext
-import com.tailoredapps.core.injection.scopes.PerApplication
-import com.tailoredapps.injection.modules.AppModule
-import com.tailoredapps.injection.modules.DataModule
-import com.tailoredapps.injection.modules.NetModule
+import androidx.fragment.app.FragmentManager
+import com.tailoredapps.core.injection.ActivityComponentProvides
+import com.tailoredapps.core.injection.qualifier.ActivityContext
+import com.tailoredapps.core.injection.qualifier.ActivityDisposable
+import com.tailoredapps.core.injection.qualifier.ActivityFragmentManager
+import com.tailoredapps.core.injection.scopes.PerActivity
+import com.tailoredapps.injection.modules.ActivityModule
 import com.tailoredapps.injection.modules.ViewModelModule
 import com.tailoredapps.template.ui.main.MainActivity
 import dagger.Component
+import io.reactivex.disposables.CompositeDisposable
 
 /* Copyright 2016 Patrick Löwenstein
  *
@@ -31,8 +30,11 @@ import dagger.Component
  * ------
  *
  * FILE MODIFIED 2017 Tailored Media GmbH */
-@PerApplication
-@Component(modules = [AppModule::class, NetModule::class, DataModule::class, ViewModelModule::class])
-interface AppComponent : AppComponentProvides {
+@PerActivity
+@Component(dependencies = [(AppComponent::class)], modules = [(ActivityModule::class), (ViewModelModule::class)])
+interface ActivityComponent : ActivityComponentProvides {
+    // create inject methods for your Activities here
+
+    fun inject(activity: MainActivity)
 
 }

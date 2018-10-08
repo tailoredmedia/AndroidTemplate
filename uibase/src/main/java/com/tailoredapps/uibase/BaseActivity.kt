@@ -27,9 +27,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.squareup.leakcanary.RefWatcher
+import com.tailoredapps.core.injection.ActivityComponentProvides
+import com.tailoredapps.core.injection.HasComponents
+import com.tailoredapps.core.injection.qualifier.ActivityDisposable
 import com.tailoredapps.uibase.view.MvvmView
 import com.tailoredapps.uibase.viewmodel.MvvmViewModel
 import com.tailoredapps.uibase.viewmodel.attachViewOrThrowRuntimeException
+import io.reactivex.disposables.CompositeDisposable
 import java.lang.reflect.ParameterizedType
 import javax.inject.Inject
 
@@ -49,25 +53,16 @@ import javax.inject.Inject
  * view model. */
 abstract class BaseActivity<B : ViewDataBinding, VM : MvvmViewModel<*>> : AppCompatActivity(), MvvmView {
 
-    companion object {
-        internal var appComponent: Any? = null
-    }
-
     protected lateinit var binding: B
     @Inject protected lateinit var viewModel: VM
 
     @Inject
     protected lateinit var refWatcher: RefWatcher
 
-    //@field:[Inject ActivityDisposable]
-    //internal lateinit var disposable: CompositeDisposable
+    @field:[Inject ActivityDisposable]
+    internal lateinit var disposable: CompositeDisposable
 
-    /*internal val activityComponent: ActivityComponent by lazy {
-        DaggerActivityComponent.builder()
-                .activityModule(ActivityModule(this))
-                .appComponent(MyApp.appComponent)
-                .build()
-    }*/
+    internal val activityComponentProvides: ActivityComponentProvides by lazy { (applicationContext as HasComponents).getActivityComponent(this) }
 
 
     @CallSuper
@@ -81,8 +76,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : MvvmViewModel<*>> : AppCom
         super.onCreate(savedInstanceState)
 
         try {
-            if(appComponent == null) { appComponent = applicationContext::class.java.getField("appComponent").get(applicationContext) }
-            appComponent!!::class.java.getDeclaredMethod("inject", this::class.java).invoke(appComponent, this)
+            activityComponentProvides::class.java.getDeclaredMethod("inject", this::class.java).invoke(activityComponentProvides, this)
         } catch(e: NoSuchMethodException) {
             throw RtfmException("You forgot to add \"fun inject(activity: ${this::class.java.simpleName})\" in ActivityComponent")
         }
@@ -91,9 +85,9 @@ abstract class BaseActivity<B : ViewDataBinding, VM : MvvmViewModel<*>> : AppCom
     @CallSuper
     override fun onDestroy() {
         super.onDestroy()
-        //disposable.clear()
+        disposable.clear()
         viewModel.detachView()
-        //refWatcher.watch(activityComponent)
+        refWatcher.watch(activityComponentProvides)
         refWatcher.watch(viewModel)
     }
 

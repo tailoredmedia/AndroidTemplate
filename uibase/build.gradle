@@ -47,9 +47,6 @@ dependencies {
      */
 
     compileOnly "javax.inject:javax.inject:1"
-    debugApi "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
-    releaseApi "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
-
 
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 }

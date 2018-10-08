@@ -15,26 +15,36 @@
 package com.tailoredapps.template
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatActivity
 import com.squareup.leakcanary.LeakCanary
+import com.tailoredapps.core.injection.AppComponentProvides
+import com.tailoredapps.core.injection.HasComponents
 import com.tailoredapps.injection.components.AppComponent
 import com.tailoredapps.injection.components.DaggerAppComponent
+import com.tailoredapps.injection.components.DaggerActivityComponent
+import com.tailoredapps.injection.modules.ActivityModule
 import com.tailoredapps.injection.modules.AppModule
 import io.reactivex.plugins.RxJavaPlugins
 import timber.log.Timber
 
-class MyApp : Application() {
+class MyApp : Application(), HasComponents {
 
-    lateinit var appComponent: AppComponent
+    override fun getActivityComponent(activity: AppCompatActivity) = DaggerActivityComponent.builder()
+            .appComponent(appComponentProvides as AppComponent)
+            .activityModule(ActivityModule(activity))
+            .build()
+
+    override val appComponentProvides: AppComponentProvides by lazy {
+        DaggerAppComponent.builder()
+                .appModule(AppModule(this))
+                .build()
+    }
 
     override fun onCreate() {
         super.onCreate()
         if (LeakCanary.isInAnalyzerProcess(this)) return
 
         Timber.plant(Timber.DebugTree())
-
-        appComponent = DaggerAppComponent.builder()
-                .appModule(AppModule(this))
-                .build()
 
         RxJavaPlugins.setErrorHandler { Timber.e(it) }
     }
