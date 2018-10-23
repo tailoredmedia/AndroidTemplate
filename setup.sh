@@ -40,6 +40,9 @@ read -p "${bold}App name:${normal} " appName
 appName=$(echo $appName | xargs echo -n)
 appNameNoWhiteSpace=$(echo $appName | sed -e 's/ //g')
 appClassName=$(echo $appNameNoWhiteSpace | awk '{print toupper(substr($0,0,1))substr($0,2)}')
+appClassName=${appClassName%"app"}
+appClassName=${appClassName%"App"}
+appClassName=${appClassName%"Application"}
 
 # Check for correct app name
 regex="^[A-Za-z0-9 ]+$"
@@ -98,9 +101,9 @@ fi
 # find and replace app name recursively
 
 if [ "Darwin" == $systemName ]; then
-    find $baseDir -not -path './.idea*' -a -not -path './.git*' -a -type f \( -iname \*.kt -o -iname \*.java -o -iname \*.xml -o -iname \*.gradle \) -exec sed -i '' "s/MyApp/${appNameNoWhiteSpace}App/g" {} +
+    find $baseDir -not -path './.idea*' -a -not -path './.git*' -a -type f \( -iname \*.kt -o -iname \*.java -o -iname \*.xml -o -iname \*.gradle \) -exec sed -i '' "s/MyApp/${appClassName}App/g" {} +
 else
-    find $baseDir -not -path './.idea*' -a -not -path './.git*' -a -type f \( -iname \*.kt -o -iname \*.java -o -iname \*.xml -o -iname \*.gradle \) -exec sed -i "s/MyApp/${appNameNoWhiteSpace}App/g" {} +
+    find $baseDir -not -path './.idea*' -a -not -path './.git*' -a -type f \( -iname \*.kt -o -iname \*.java -o -iname \*.xml -o -iname \*.gradle \) -exec sed -i "s/MyApp/${appClassName}App/g" {} +
 fi
 
 # move files
