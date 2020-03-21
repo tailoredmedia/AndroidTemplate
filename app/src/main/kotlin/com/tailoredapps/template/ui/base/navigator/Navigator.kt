@@ -40,12 +40,15 @@ interface Navigator {
 
     fun startActivity(intent: Intent)
     fun startActivity(action: String, uri: Uri? = null)
-    fun startActivity(activityClass: Class<out Activity>, adaptIntentFun: (Intent.() -> Unit)? = null)
+    fun startActivity(activityClass: Class<out Activity>)
 
-    fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: Pair<View, String>, adaptIntentFun: (Intent.() -> Unit)? = null)
-    fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: View, adaptIntentFun: (Intent.() -> Unit)? = null)
+    fun startActivityWithTransition(intent: Intent, vararg transitionViews: Pair<View, String>)
+    fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: Pair<View, String>)
+    fun startActivityWithTransition(intent: Intent, vararg transitionViews: View)
+    fun startActivityWithTransition(activityClass: Class<out Activity>, vararg transitionViews: View)
 
-    fun startActivityForResult(activityClass: Class<out Activity>, requestCode: Int, adaptIntentFun: (Intent.() -> Unit)? = null)
+    fun startActivityForResult(intent: Intent, requestCode: Int)
+    fun startActivityForResult(activityClass: Class<out Activity>, requestCode: Int)
 
     fun <T : DialogFragment> showDialogFragment(dialog: T, fragmentTag: String = dialog::class.java.name)
 
